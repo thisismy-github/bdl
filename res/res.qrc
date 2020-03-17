@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="ui">
+    <file>BDL_icon.ico</file>
+    <file>browse.png</file>
+    <file>download7.png</file>
+    <file>minus2.png</file>
+    <file>plus2.png</file>
+    <file>checkbox_on6.png</file>
+  </qresource>
+</RCC>

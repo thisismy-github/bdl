@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BDLMainWindow</class>
+ <widget class="QMainWindow" name="BDLMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>225</width>
+    <height>247</height>
+   </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">bdl</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/ui/BDL_icon.ico</normaloff>:/ui/BDL_icon.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="1">
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="styleSheet">
+         <string notr="true">QTabWidget::pane { 
+ position: absolute;
+ padding: 1px 1px 1px 1px;
+ margin: -8px -7px -8px -7px; }
+
+QTabBar::tab { padding: 2px 7px 0px 7px; }</string>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tabMain">
+         <attribute name="title">
+          <string notr="true">Main</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="7" column="0" colspan="2">
+           <layout class="QGridLayout" name="tabMainGLayout">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item row="0" column="0" colspan="2">
+             <layout class="QVBoxLayout" name="bottomGLayout">
+              <property name="spacing">
+               <number>1</number>
+              </property>
+              <item>
+               <widget class="QSplitter" name="splitter">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>2</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="handleWidth">
+                 <number>1</number>
+                </property>
+                <widget class="QWidget" name="layoutWidget">
+                 <layout class="QVBoxLayout" name="leftVLayout">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <layout class="QHBoxLayout" name="pwadHLayout">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="pwadLabel">
+                      <property name="toolTip">
+                       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add external files to run here, such as custom maps and mods (known as PWADs or &amp;quot;patch WADs&amp;quot;). Common extensions include .wad, .pk3, .deh, and .bex. BDL can also accept .zip files.&lt;/p&gt;&lt;p&gt;Drag and drop files to reorder them. Uncheck files to prevent them from being loaded.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Files will be loaded in the order they are listed, top to bottom.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This means if multiple files replace the same data (i.e. MAP01), only the last instance of that data will be loaded. Keep this in mind, especially when loading music and cosmetic mods.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true">External Files</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_7">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Fixed</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>3</width>
+                        <height>10</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pwadAdd">
+                      <property name="minimumSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>30</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="res.qrc">
+                        <normaloff>:/ui/plus2.png</normaloff>:/ui/plus2.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>9</width>
+                        <height>9</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pwadRem">
+                      <property name="maximumSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="res.qrc">
+                        <normaloff>:/ui/minus2.png</normaloff>:/ui/minus2.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>9</width>
+                        <height>9</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_8">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Maximum</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>5000</width>
+                        <height>10</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="bdlListWidget" name="pwadList">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QListWidget {
+outline: 0; }
+
+QListWidget::indicator {
+width: 8px;
+height: 8px;
+right: -4px; }
+
+QListView::item:text {
+color: black;
+padding-left: -5px;
+padding-top: -1px; }
+
+QListWidget::indicator::checked { image: url(:/ui/checkbox_on6.png); }</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::WinPanel</enum>
+                    </property>
+                    <property name="horizontalScrollBarPolicy">
+                     <enum>Qt::ScrollBarAlwaysOff</enum>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::InternalMove</enum>
+                    </property>
+                    <property name="selectionMode">
+                     <enum>QAbstractItemView::ExtendedSelection</enum>
+                    </property>
+                    <property name="movement">
+                     <enum>QListView::Free</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="layoutWidget_2">
+                 <layout class="QVBoxLayout" name="rightVLayout">
+                  <property name="spacing">
+                   <number>1</number>
+                  </property>
+                  <item>
+                   <layout class="QHBoxLayout" name="portHLayout">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="portLabel">
+                      <property name="toolTip">
+                       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Install new or add existing source ports here.&lt;/p&gt;&lt;p&gt;Source ports are ports of Doom's source code and are the basis through which all game data (WADs) are played.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true">Source Port</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_9">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Fixed</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>3</width>
+                        <height>10</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="portDownload">
+                      <property name="maximumSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="toolTip">
+                       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Download, install, and configure a new source port directly through BDL.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="res.qrc">
+                        <normaloff>:/ui/download7.png</normaloff>:/ui/download7.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>9</width>
+                        <height>9</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QToolButton" name="portMenuButton">
+                      <property name="maximumSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="res.qrc">
+                        <normaloff>:/ui/browse.png</normaloff>:/ui/browse.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>9</width>
+                        <height>9</height>
+                       </size>
+                      </property>
+                      <property name="popupMode">
+                       <enum>QToolButton::MenuButtonPopup</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_10">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>5000</width>
+                        <height>10</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="bdlComboBox" name="portCombo">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>2</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="iwadHLayout">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="iwadLabel">
+                      <property name="toolTip">
+                       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;IWADs or &amp;quot;Interal WADs&amp;quot; are official game data, and act as the base for which custom files (or PWADs) replace and load custom data.&lt;/p&gt;&lt;p&gt;Examples of IWADs are &lt;span style=&quot; font-style:italic;&quot;&gt;DOOM.WAD, DOOM2.WAD, TNT.WAD, PLUTONIA.WAD&lt;/span&gt;, etc.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true">IWAD</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_11">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Fixed</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>3</width>
+                        <height>10</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="iwadAdd">
+                      <property name="minimumSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>30</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="res.qrc">
+                        <normaloff>:/ui/plus2.png</normaloff>:/ui/plus2.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>9</width>
+                        <height>9</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="iwadRem">
+                      <property name="maximumSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="res.qrc">
+                        <normaloff>:/ui/minus2.png</normaloff>:/ui/minus2.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>9</width>
+                        <height>9</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_12">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>5000</width>
+                        <height>10</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="bdlListWidget" name="iwadList">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QListWidget { outline: 0; }
+
+QListWidget::item {
+margin-top: -4px;
+margin-bottom: 1px; }
+
+QListView::item::text { color: black; }
+
+QListView::item:selected {
+background-color: rgb(235, 235, 235);
+margin-top: 0px;
+margin-bottom: 0px; }
+
+QListView::item:selected:active {
+background-color: rgb(0, 122, 215);
+color: white; }</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::WinPanel</enum>
+                    </property>
+                    <property name="horizontalScrollBarPolicy">
+                     <enum>Qt::ScrollBarAlwaysOff</enum>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::InternalMove</enum>
+                    </property>
+                    <property name="movement">
+                     <enum>QListView::Free</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="parameterLineEdit">
+                <property name="toolTip">
+                 <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add more command line arguments here, separated by spaces.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="placeholderText">
+                 <string notr="true">Extra command line arguments</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="bottomHLayout">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item>
+                 <widget class="QComboBox" name="complevelCombo">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>128</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Complevels, or compatibilty levels, are used by PrBoom+ and GLBoom+ to emulate various Doom versions and formats. This dropdown features the most common complevels.&lt;/p&gt;&lt;p&gt;If you're playing a custom wad, look for &amp;quot;complevel&amp;quot;, &amp;quot;cl&amp;quot;, a source port, or a specific format (vanilla, limit-removing, boom, MBF, UDMF) mentioned in its description, to know what to pick. If it says &amp;quot;vanilla&amp;quot; or &amp;quot;limit-removing&amp;quot; and its for Doom 2, pick complevel 2. If it says &amp;quot;UDMF&amp;quot; or &amp;quot;Hexen in Doom 2&amp;quot;, pick a ZDoom source port.&lt;/p&gt;&lt;p&gt;This dropdown can be overridden by manually specifying a complevel as one of your extra command line arguments. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This dropdown has no effect on other source ports.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string notr="true">-complevel 2 (Doom II)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">-complevel 3 (Ultimate Doom)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">-complevel 4 (Final Doom)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">-complevel 9 (Boom)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">-complevel 11 (MBF)</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="launchButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string notr="true">Launch</string>
+                  </property>
+                  <property name="default">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tabSettings">
+         <attribute name="title">
+          <string notr="true">Settings</string>
+         </attribute>
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="1">
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QGroupBox" name="groupBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="title">
+               <string notr="true">Warp to level</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <widget class="QComboBox" name="comboBox">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>20</y>
+                 <width>201</width>
+                 <height>20</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tabTools">
+         <attribute name="title">
+          <string notr="true">Tools</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="tabInstall">
+         <attribute name="title">
+          <string notr="true">Install</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="tabBDL">
+         <attribute name="title">
+          <string notr="true">bdl</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="aboutButton">
+            <property name="maximumSize">
+             <size>
+              <width>46</width>
+              <height>21</height>
+             </size>
+            </property>
+            <property name="text">
+             <string notr="true">About</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>225</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="portMenu">
+    <property name="title">
+     <string notr="true">Source Ports</string>
+    </property>
+    <addaction name="portAdd"/>
+    <addaction name="portRem"/>
+    <addaction name="separator"/>
+    <addaction name="portRename"/>
+    <addaction name="separator"/>
+    <addaction name="portMoveUp"/>
+    <addaction name="portMoveDown"/>
+    <addaction name="portMoveToBottom"/>
+    <addaction name="portMoveToTop"/>
+    <addaction name="separator"/>
+    <addaction name="portDownloadAction"/>
+   </widget>
+   <addaction name="portMenu"/>
+  </widget>
+  <action name="portAdd">
+   <property name="text">
+    <string>Add existing source ports</string>
+   </property>
+  </action>
+  <action name="portRem">
+   <property name="text">
+    <string notr="true">Remove selected source port</string>
+   </property>
+  </action>
+  <action name="portMoveDown">
+   <property name="text">
+    <string notr="true">Move down</string>
+   </property>
+  </action>
+  <action name="portMoveUp">
+   <property name="text">
+    <string notr="true">Move up</string>
+   </property>
+  </action>
+  <action name="portDownloadAction">
+   <property name="text">
+    <string notr="true">Download new source port</string>
+   </property>
+  </action>
+  <action name="portMoveToBottom">
+   <property name="text">
+    <string notr="true">Move to bottom</string>
+   </property>
+  </action>
+  <action name="portMoveToTop">
+   <property name="text">
+    <string notr="true">Move to top</string>
+   </property>
+  </action>
+  <action name="portRename">
+   <property name="text">
+    <string notr="true">Rename selected source port</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>bdlComboBox</class>
+   <extends>QComboBox</extends>
+   <header>bdlComboBox</header>
+  </customwidget>
+  <customwidget>
+   <class>bdlListWidget</class>
+   <extends>QListWidget</extends>
+   <header>bdlListWidget</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>
