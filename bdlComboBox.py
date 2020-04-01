@@ -2,9 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import run
 
 class bdlComboBox(QtWidgets.QComboBox):
-    def __init__(self, parent, fileType):
+    def __init__(self, parent):
         super().__init__(parent)
-        self.type = fileType
         self.setAcceptDrops(True)
 
     def dragEnterEvent(self, event):

@@ -7,9 +7,8 @@ class bdlListWidget(QtWidgets.QListWidget):
     # nor any error messages, yet is required for the widget to run.
     # Actual event functions were taken from this github example, since figuring this out
     # normally was practically impossible: https://gist.github.com/peace098beat/db8ef7161508e6500ebe
-    def __init__(self, parent, fileType):
+    def __init__(self, parent):
         super().__init__(parent)
-        self.type = fileType
         self.setAcceptDrops(True)
 
     def dragEnterEvent(self, event):

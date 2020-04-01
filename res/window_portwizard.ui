@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>portWizard</class>
+ <widget class="QWizard" name="portWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>700</width>
+    <height>870</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Install a source port</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/ui/BDL_icon.ico</normaloff>:/ui/BDL_icon.ico</iconset>
+  </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ClassicStyle</enum>
+  </property>
+  <widget class="QWizardPage" name="wizPortSelect">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="horizontalSpacing">
+     <number>6</number>
+    </property>
+    <property name="verticalSpacing">
+     <number>12</number>
+    </property>
+    <item row="3" column="2">
+     <widget class="QLabel" name="wizGZDLabel">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>540</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+       </font>
+      </property>
+      <property name="text">
+       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;line-height:0.5&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;GZDoom&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height:0.8&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#006600;&quot;&gt;(Recommended secondary port)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;An enhanced port providing support for highly advanced maps and mods, but with severe sacrifices for unmodded vanilla gameplay.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Uncapped framerate&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+High resolutions&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Very customizable&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Support for vertical aiming&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Software and hardware renderers&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Heretic, Hexen, and Strife support&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Supports highly advanced map formats (such as UDMF or Hexen) and mods (such as Brutal Doom)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;~Multiplayer support (Zandronum, a ZDoom-based multiplayer port, is recommended instead.)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-Numerous changes to vanilla gameplay, with altered RNG, AI, movement, and physics (among other things), as well as reduced visual and audio quality for vanilla assets. These issues are not noticable with most advanced mods.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-Not user-friendly&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-Simple demo support restricted to the GZDoom version it was recorded with&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-May run poorly on older hardware&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4">
+     <widget class="QCheckBox" name="wizCHOSelect">
+      <property name="styleSheet">
+       <string notr="true">QCheckBox::indicator {
+width: 24px;
+height: 24px; }</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/portwiz/chocolate-doom_icon.png</normaloff>:/portwiz/chocolate-doom_icon.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>96</width>
+        <height>96</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QCheckBox" name="wizPRBSelect">
+      <property name="minimumSize">
+       <size>
+        <width>128</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QCheckBox::indicator {
+width: 24px;
+height: 24px; }</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/portwiz/prboom-plus_icon.png</normaloff>:/portwiz/prboom-plus_icon.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>96</width>
+        <height>96</height>
+       </size>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" rowspan="2">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QLabel" name="wizCHOLabel">
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+       </font>
+      </property>
+      <property name="text">
+       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;line-height:0.85&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Chocolate Doom&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;A port providing a truly vanilla experience on modern machines.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+As close to vanilla as one can get on modern hardware without DOSBox&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Runs on practically anything&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Heretic, Hexen, and Strife versions available (not included with BDL)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Full multiplayer support, up to 4 players. Games must be started manually through chocolate-doom-setup.exe, and require either a virtual LAN or port forwarding. (For non-vanilla multiplayer, Zandronum, a ZDoom-based multiplayer port, is recommended.)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;~320x200 resolution&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;~Capped framerate&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;~Includes vanilla bugs and quirks&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;~Extremely limited customization&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;~Software renderer only&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-Supports ONLY vanilla maps and patches, not even limit-removing maps may be played&lt;/span&gt;&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>5</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="0" colspan="5">
+     <widget class="QLabel" name="wizLabel">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>110</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+       </font>
+      </property>
+      <property name="text">
+       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;line-height:0.6&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Select new source ports to install&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height:0.8&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;BDL will download and automatically configure your selected ports.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height:0.8&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;It's highly recommended to select multiple source ports: one as your default port, and then at least one other source port to take care of edge cases (for example, PrBoom+ for normal gameplay and GZDoom for GZDoom-exclusive maps or advanced mods such as Brutal Doom).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3" rowspan="2">
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QCheckBox" name="wizGZDSelect">
+      <property name="styleSheet">
+       <string notr="true">QCheckBox::indicator {
+width: 24px;
+height: 24px; }</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/portwiz/gzdoom_icon.png</normaloff>:/portwiz/gzdoom_icon.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>96</width>
+        <height>96</height>
+       </size>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="wizPRBLabel">
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+       </font>
+      </property>
+      <property name="text">
+       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;line-height:0.5&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;PrBoom+&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.8&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#006600;&quot;&gt;(Recommended⠀⠀ primary port)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;An enhanced port providing an authentic experience while still offering features such as uncapped framerates, high resolutions, cosmetic effects, and moderately advanced custom map support.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Uncapped framerate&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+High resolutions&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Customizable&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Support for vertical aiming&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.1&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Vanilla demo support&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Easy to use&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Software and hardware (GLBoom+) renderers&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#005500;&quot;&gt;+Supports and can emulate multiple Doom games, mapping formats, and patches, up to Boom and MBF maps&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-Cannot run advanced gameplay mods (such as Brutal Doom)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-Cannot run GZDoom-exclusive UDMF and Hexen format maps (though they're uncommon)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;line-height:0.9&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#550000;&quot;&gt;-May cause issues on older hardware&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="wizGeneral">
+   <widget class="QLabel" name="wizLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>682</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+     </font>
+    </property>
+    <property name="text">
+     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;line-height:0.6&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;General Settings&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height:0.8&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Here you can pick most of your settings. Hover over each to see more information.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>311</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string notr="true">Basic settings (all checkboxes are unchecked by default)</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="4" column="3">
+      <widget class="QCheckBox" name="setVsync">
+       <property name="toolTip">
+        <string notr="true">Syncs the framerate with your monitor's refresh rate, eliminating screen tearing.
+On most systems however, this will introduce moderate to severe input lag.
+(not available in Chocolate Doom)</string>
+       </property>
+       <property name="text">
+        <string notr="true">Vsync</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2" rowspan="4">
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="3">
+      <widget class="QCheckBox" name="setDisableAutoaim">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Prevents game from automatically shooting
+enemies above and below your line of sight.</string>
+       </property>
+       <property name="text">
+        <string notr="true">Disable Autoaim</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0" colspan="4">
+      <widget class="QLabel" name="warningYShearingLabel">
+       <property name="toolTip">
+        <string>Y-shearing is a technique used to create the illusion of vertical
+aim. In practice, it has limited vertical angles, and creates
+severe distortions to the screen when looking up and down, 
+which can be nauseating and/or disorienting for some users.</string>
+       </property>
+       <property name="text">
+        <string notr="true">Note: Vertical aim not recommended in software renderers due to them using a technique known as &quot;y-shearing&quot;.</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QCheckBox" name="setVerticalAim">
+       <property name="toolTip">
+        <string notr="true">Allows for aiming up and down. Normally, you can only look side to side, with
+the game using autoaim to shoot enemies above and below your line of sight.</string>
+       </property>
+       <property name="text">
+        <string notr="true">Vertical Aim</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="bindUseLabel">
+         <property name="toolTip">
+          <string notr="true">Vanilla: Space</string>
+         </property>
+         <property name="text">
+          <string notr="true">Use</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="bindUseCombo">
+         <item>
+          <property name="text">
+           <string notr="true">E</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">Space</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="6" column="3">
+      <widget class="QCheckBox" name="setSecretNotification">
+       <property name="toolTip">
+        <string notr="true">Play a sound and display a notification on screen
+when a secret area has been entered.
+(not available in Chocolate Doom)</string>
+       </property>
+       <property name="text">
+        <string notr="true">Secret notification</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QCheckBox" name="setAutorun">
+       <property name="toolTip">
+        <string notr="true">Inverts running so that you run by default and the run key makes you
+walk instead. Press Caps Lock in-game to toggle autorun on and off.
+
+In Chocolate Doom, you will only be able to run, with no way to walk,
+and autorun cannot be toggled mid-game.</string>
+       </property>
+       <property name="text">
+        <string notr="true">Autorun</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="2">
+      <widget class="QCheckBox" name="setDisablePitch">
+       <property name="toolTip">
+        <string notr="true">A feature unintentionally broken in the original Doom after
+v1.4, this setting randomizes the pitch of all sound effects.
+
+However, John Romero has stated that he wasn't a fan
+of this feature in the first place, and that Doom's sound
+effects were not designed with it in mind. Despite this,
+many source ports and official console releases of Doom
+have this feature restored.</string>
+       </property>
+       <property name="text">
+        <string notr="true">Disable random sound pitch</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QCheckBox" name="setAutomapStats">
+       <property name="toolTip">
+        <string notr="true">Display your stats for the current level on your automap,
+including your kills, secrets, and items collected, as well
+as how many of each there are in total in the level.
+
+Note: While the original Doom games did not have this
+feature, your stats are still shown to you between levels.
+(not available in Chocolate Doom)</string>
+       </property>
+       <property name="text">
+        <string notr="true">Show stats on automap</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="3">
+      <widget class="QSpinBox" name="setSoundChannelsSpin">
+       <property name="toolTip">
+        <string notr="true">Controls the number of sounds that can play
+at once. If too many sounds are playing,
+lower priority sounds will be cut off.
+
+Vanilla Doom uses 8 sound channels.</string>
+       </property>
+       <property name="prefix">
+        <string notr="true">Sound channels: </string>
+       </property>
+       <property name="minimum">
+        <number>4</number>
+       </property>
+       <property name="maximum">
+        <number>64</number>
+       </property>
+       <property name="value">
+        <number>8</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="4">
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="Line" name="line_9">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="bindMoveLabel">
+         <property name="toolTip">
+          <string notr="true">Vanilla: ↑↓ , .
+← and → turn you left and right, respectively.</string>
+         </property>
+         <property name="text">
+          <string notr="true">Movement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="bindMoveCombo">
+         <item>
+          <property name="text">
+           <string notr="true">WASD</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">↑↓ , .</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>460</y>
+      <width>681</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string notr="true">PrBoom+ Settings</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_5"/>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>290</y>
+      <width>681</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string notr="true">Resolution</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_6"/>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="wizPRB1"/>
+  <widget class="QWizardPage" name="wizPRB2"/>
+  <widget class="QWizardPage" name="wizFinished"/>
+ </widget>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>setVerticalAim</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>setDisableAutoaim</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>555</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setVerticalAim</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>setDisableAutoaim</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>415</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>572</x>
+     <y>123</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

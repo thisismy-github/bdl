@@ -40,4 +40,6 @@ tmp/**
 test-results.xml
 uitests/out/**
 !build/
+IWADs/
+*.ini
 reset.py

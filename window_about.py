@@ -17,7 +17,7 @@ class Ui_aboutDialog(object):
         aboutDialog.setMinimumSize(QtCore.QSize(379, 253))
         aboutDialog.setMaximumSize(QtCore.QSize(379, 253))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/about/BDL_icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ui/BDL_icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         aboutDialog.setWindowIcon(icon)
         aboutDialog.setStyleSheet("QDialog {\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(50, 50, 50, 255), stop:1 rgba(85, 0, 0, 255));\n"
@@ -96,7 +96,7 @@ class Ui_aboutDialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.versionLabel.sizePolicy().hasHeightForWidth())
         self.versionLabel.setSizePolicy(sizePolicy)
-        self.versionLabel.setMaximumSize(QtCore.QSize(212, 16777215))
+        self.versionLabel.setMaximumSize(QtCore.QSize(250, 16777215))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei Light")
         font.setPointSize(24)
@@ -131,15 +131,5 @@ class Ui_aboutDialog(object):
         aboutDialog.setWindowTitle(_translate("aboutDialog", "About bdl"))
         self.label.setText(_translate("aboutDialog", "<html><head/><body><p><span style=\" color:#ffffff;\">Special thanks to BioHazard for the original ZDoom Launcher (ZDL), QBasicer (qZDL), Lcferrum (ZDL revival), bloodbat (ZDoom Executer), Tony Phelps (ZDoom Runner), Hypnotoad90 (Rocket Launcher 2.0), hobomaster22 (Doom Launcher), and you! c:</span></p></body></html>"))
         self.label_4.setText(_translate("aboutDialog", "<html><head/><body><p style=\"line-height:0.25\">github: <a href=\"https://www.github.com/thisismy-github/bdl\"><span style=\" text-decoration: underline; color:#00aaff;\">https://www.github.com/thisismy-github/bdl</span></a></p><p>Any feedback? <a href=\"https://www.doomworld.com/messenger/compose/?to=28294\"><span style=\" text-decoration: underline; color:#00aaff;\">PM me on Doomworld</span></a></p></body></html>"))
-        self.versionLabel.setText(_translate("aboutDialog", "<html><head/><body><p style=\"line-height:0.65\">bdl 0.0.1 alpha</p><p style=\"line-height:0.22\"><span style=\" font-size:10.5pt;\">copyright (c) 2020 me__</span></p><p><a href=\"https://www.thisismywebsite.net/\"><span style=\" font-size:10.5pt; text-decoration: underline; color:#00aaff;\">https://www.thisismywebsite.net/</span></a></p></body></html>"))
+        self.versionLabel.setText(_translate("aboutDialog", "<html><head/><body><p style=\"line-height:0.65\">bdl 0.0.3 alpha</p><p style=\"line-height:0.22\"><span style=\" font-size:10.5pt;\">copyright (c) 2020 me__</span></p><p><a href=\"https://www.thisismywebsite.net/\"><span style=\" font-size:10.5pt; text-decoration: underline; color:#00aaff;\">https://www.thisismywebsite.net/</span></a></p></body></html>"))
 import res_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    aboutDialog = QtWidgets.QDialog()
-    ui = Ui_aboutDialog()
-    ui.setupUi(aboutDialog)
-    aboutDialog.show()
-    sys.exit(app.exec_())

@@ -7,4 +7,9 @@
     <file>plus2.png</file>
     <file>checkbox_on6.png</file>
   </qresource>
+  <qresource prefix="portwiz">
+    <file>prboom-plus_icon.png</file>
+    <file>chocolate-doom_icon.png</file>
+    <file>gzdoom_icon.png</file>
+  </qresource>
 </RCC>

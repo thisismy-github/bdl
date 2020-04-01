@@ -173,8 +173,8 @@ QTabBar::tab { padding: 2px 7px 0px 7px; }</string>
                       </property>
                       <property name="sizeHint" stdset="0">
                        <size>
-                        <width>5000</width>
-                        <height>10</height>
+                        <width>3000</width>
+                        <height>0</height>
                        </size>
                       </property>
                      </spacer>
@@ -183,6 +183,9 @@ QTabBar::tab { padding: 2px 7px 0px 7px; }</string>
                   </item>
                   <item>
                    <widget class="bdlListWidget" name="pwadList">
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::ActionsContextMenu</enum>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -310,8 +313,8 @@ QListWidget::indicator::checked { image: url(:/ui/checkbox_on6.png); }</string>
                       </property>
                       <property name="sizeHint" stdset="0">
                        <size>
-                        <width>5000</width>
-                        <height>10</height>
+                        <width>3000</width>
+                        <height>0</height>
                        </size>
                       </property>
                      </spacer>
@@ -419,14 +422,37 @@ QListWidget::indicator::checked { image: url(:/ui/checkbox_on6.png); }</string>
                      </widget>
                     </item>
                     <item>
+                     <widget class="QToolButton" name="iwadMenuButton">
+                      <property name="maximumSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="res.qrc">
+                        <normaloff>:/ui/browse.png</normaloff>:/ui/browse.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>9</width>
+                        <height>9</height>
+                       </size>
+                      </property>
+                      <property name="popupMode">
+                       <enum>QToolButton::MenuButtonPopup</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <spacer name="horizontalSpacer_12">
                       <property name="orientation">
                        <enum>Qt::Horizontal</enum>
                       </property>
                       <property name="sizeHint" stdset="0">
                        <size>
-                        <width>5000</width>
-                        <height>10</height>
+                        <width>3000</width>
+                        <height>0</height>
                        </size>
                       </property>
                      </spacer>
@@ -448,7 +474,7 @@ margin-bottom: 1px; }
 QListView::item::text { color: black; }
 
 QListView::item:selected {
-background-color: rgb(235, 235, 235);
+background-color: rgb(230, 230, 230);
 margin-top: 0px;
 margin-bottom: 0px; }
 
@@ -504,7 +530,7 @@ color: white; }</string>
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Complevels, or compatibilty levels, are used by PrBoom+ and GLBoom+ to emulate various Doom versions and formats. This dropdown features the most common complevels.&lt;/p&gt;&lt;p&gt;If you're playing a custom wad, look for &amp;quot;complevel&amp;quot;, &amp;quot;cl&amp;quot;, a source port, or a specific format (vanilla, limit-removing, boom, MBF, UDMF) mentioned in its description, to know what to pick. If it says &amp;quot;vanilla&amp;quot; or &amp;quot;limit-removing&amp;quot; and its for Doom 2, pick complevel 2. If it says &amp;quot;UDMF&amp;quot; or &amp;quot;Hexen in Doom 2&amp;quot;, pick a ZDoom source port.&lt;/p&gt;&lt;p&gt;This dropdown can be overridden by manually specifying a complevel as one of your extra command line arguments. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This dropdown has no effect on other source ports.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Complevels, or compatibilty levels, are used by PrBoom+ and GLBoom+ to emulate various Doom versions and formats. This dropdown features the most common complevels.&lt;/p&gt;&lt;p&gt;If you're playing a custom wad, look for &amp;quot;complevel&amp;quot;, &amp;quot;cl&amp;quot;, a source port, or a specific format (vanilla, limit-removing, boom, MBF, UDMF) mentioned in its description, to know what to pick. If it says &amp;quot;vanilla&amp;quot; or &amp;quot;limit-removing&amp;quot; and its for Doom 2, pick complevel 2. If it says &amp;quot;UDMF&amp;quot; or &amp;quot;Hexen in Doom 2&amp;quot;, pick a ZDoom source port.&lt;/p&gt;&lt;p&gt;This dropdown can be overridden by manually specifying a complevel as one of your extra command line arguments.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This dropdown will be disabled if you're playing a demo.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This dropdown has no effect on other source ports.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <item>
                    <property name="text">
@@ -567,51 +593,217 @@ color: white; }</string>
          <attribute name="title">
           <string notr="true">Settings</string>
          </attribute>
-         <layout class="QFormLayout" name="formLayout_2">
-          <item row="0" column="1">
-           <layout class="QGridLayout" name="gridLayout_4">
-            <item row="0" column="0">
-             <widget class="QGroupBox" name="groupBox">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>56</height>
-               </size>
-              </property>
-              <property name="title">
-               <string notr="true">Warp to level</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
-              </property>
-              <widget class="QComboBox" name="comboBox">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>20</y>
-                 <width>201</width>
-                 <height>20</height>
-                </rect>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>12</number>
+          </property>
+          <property name="bottomMargin">
+           <number>11</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>4</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="demoGroup">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>56</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string notr="true"/>
+            </property>
+            <property name="title">
+             <string notr="true">Record/Play Demo</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>6</number>
+             </property>
+             <property name="horizontalSpacing">
+              <number>1</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>4</number>
+             </property>
+             <item row="1" column="0">
+              <widget class="QRadioButton" name="demoPlayRadio">
+               <property name="text">
+                <string notr="true">Play</string>
                </property>
               </widget>
-             </widget>
-            </item>
-           </layout>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="demoPlayBrowseButton">
+               <property name="maximumSize">
+                <size>
+                 <width>22</width>
+                 <height>22</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLineEdit" name="demoRecordNameLineEdit">
+               <property name="placeholderText">
+                <string notr="true">Name of demo</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="demoPlayPathLineEdit">
+               <property name="placeholderText">
+                <string notr="true">Path to demo</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QRadioButton" name="demoRecordRadio">
+               <property name="text">
+                <string notr="true">Record</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="3">
+              <widget class="QCheckBox" name="demoAutoRecordCheck">
+               <property name="toolTip">
+                <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically start recording a new demo after the previous recording finishes. Mainly intended for speedrunners, who must restart frequently.&lt;/p&gt;&lt;p&gt;Appends an attempt number to the end of each file. Demos must be deleted manually.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This setting must be turned off while in-game&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="text">
+                <string notr="true">Auto-record new demos</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="warpGroup">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>56</height>
+             </size>
+            </property>
+            <property name="title">
+             <string notr="true">Warp to level</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_10">
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>6</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>4</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="warpMapLabel">
+               <property name="text">
+                <string notr="true">Map</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="warpMapCombo">
+               <item>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="warpSkillLabel_2">
+               <property name="text">
+                <string notr="true">Skill</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="warpSkillCombo">
+               <property name="currentIndex">
+                <number>3</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string notr="true">I'm Too Young To Die</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">Hey, Not Too Rough</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">Hurt Me Plenty</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">Ultra-Violence</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">NIGHTMARE!</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -630,7 +822,35 @@ color: white; }</string>
           <string notr="true">bdl</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="0">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>12</number>
+          </property>
+          <property name="horizontalSpacing">
+           <number>0</number>
+          </property>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="commandLinePreviewButton">
+            <property name="maximumSize">
+             <size>
+              <width>126</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string notr="true">Preview Command Line</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
            <widget class="QPushButton" name="aboutButton">
             <property name="maximumSize">
              <size>
@@ -642,6 +862,84 @@ color: white; }</string>
              <string notr="true">About</string>
             </property>
            </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <layout class="QFormLayout" name="formLayout">
+            <property name="verticalSpacing">
+             <number>2</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="bdlAutoClose">
+              <property name="toolTip">
+               <string notr="true">Close BDL after launching a game. BDL
+will only close once the game is closed.</string>
+              </property>
+              <property name="text">
+               <string notr="true">Close on launch</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="bdlForceCaps">
+              <property name="toolTip">
+               <string notr="true">Force the word &quot;Doom&quot; to be automatically
+capitalized in the selected style for all currently
+added and any future added IWADs.</string>
+              </property>
+              <property name="text">
+               <string notr="true">Force capitalization:</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="bdlForceCapsPreferenceCombo">
+              <property name="maximumSize">
+               <size>
+                <width>55</width>
+                <height>17</height>
+               </size>
+              </property>
+              <property name="currentText">
+               <string notr="true">Doom</string>
+              </property>
+              <item>
+               <property name="text">
+                <string notr="true">Doom</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">DOOM</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">DooM</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QCheckBox" name="bdlAutoDetectIWADs">
+              <property name="toolTip">
+               <string notr="true">Generates and reads the md5 hashes
+of IWADs to validate and name them.
+
+May cause minor hiccups when adding
+IWADs on older machines.</string>
+              </property>
+              <property name="text">
+               <string notr="true">Automatically detect IWADs</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -664,23 +962,52 @@ color: white; }</string>
     <property name="title">
      <string notr="true">Source Ports</string>
     </property>
+    <addaction name="portDownloadAction"/>
+    <addaction name="separator"/>
     <addaction name="portAdd"/>
     <addaction name="portRem"/>
     <addaction name="separator"/>
     <addaction name="portRename"/>
+    <addaction name="portBrowseLocalFiles"/>
     <addaction name="separator"/>
     <addaction name="portMoveUp"/>
     <addaction name="portMoveDown"/>
     <addaction name="portMoveToBottom"/>
     <addaction name="portMoveToTop"/>
+   </widget>
+   <widget class="QMenu" name="iwadMenu">
+    <property name="title">
+     <string notr="true">IWADs</string>
+    </property>
+    <widget class="QMenu" name="iwadMenuSteam">
+     <property name="title">
+      <string notr="true">Purchase on Steam...</string>
+     </property>
+     <addaction name="iwadSteamUDoom"/>
+     <addaction name="iwadSteamDoom2"/>
+     <addaction name="iwadSteamFinalDoom"/>
+     <addaction name="iwadSteamClassicComplete"/>
+    </widget>
+    <widget class="QMenu" name="iwadMenuDeals">
+     <property name="title">
+      <string notr="true">Check for deals...</string>
+     </property>
+     <addaction name="iwadDealsUDoom"/>
+     <addaction name="iwadDealsDoom2"/>
+     <addaction name="iwadDealsFinalDoom"/>
+     <addaction name="iwadDealsClassicComplete"/>
+    </widget>
+    <addaction name="iwadBrowseLocalFiles"/>
     <addaction name="separator"/>
-    <addaction name="portDownloadAction"/>
+    <addaction name="iwadMenuSteam"/>
+    <addaction name="iwadMenuDeals"/>
    </widget>
    <addaction name="portMenu"/>
+   <addaction name="iwadMenu"/>
   </widget>
   <action name="portAdd">
    <property name="text">
-    <string>Add existing source ports</string>
+    <string notr="true">Add existing source ports</string>
    </property>
   </action>
   <action name="portRem">
@@ -718,6 +1045,56 @@ color: white; }</string>
     <string notr="true">Rename selected source port</string>
    </property>
   </action>
+  <action name="portBrowseLocalFiles">
+   <property name="text">
+    <string notr="true">Open source port location</string>
+   </property>
+  </action>
+  <action name="iwadBrowseLocalFiles">
+   <property name="text">
+    <string notr="true">Open IWAD location</string>
+   </property>
+  </action>
+  <action name="iwadSteamUDoom">
+   <property name="text">
+    <string notr="true">Ultimate Doom</string>
+   </property>
+  </action>
+  <action name="iwadSteamDoom2">
+   <property name="text">
+    <string notr="true">Doom II: Hell on Earth</string>
+   </property>
+  </action>
+  <action name="iwadSteamFinalDoom">
+   <property name="text">
+    <string notr="true">Final Doom</string>
+   </property>
+  </action>
+  <action name="iwadSteamClassicComplete">
+   <property name="text">
+    <string notr="true">Doom Classic Complete</string>
+   </property>
+  </action>
+  <action name="iwadDealsUDoom">
+   <property name="text">
+    <string notr="true">Ultimate Doom</string>
+   </property>
+  </action>
+  <action name="iwadDealsDoom2">
+   <property name="text">
+    <string notr="true">Doom II: Hell on Earth</string>
+   </property>
+  </action>
+  <action name="iwadDealsFinalDoom">
+   <property name="text">
+    <string notr="true">Final Doom</string>
+   </property>
+  </action>
+  <action name="iwadDealsClassicComplete">
+   <property name="text">
+    <string notr="true">Doom Classic Complete</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -734,5 +1111,22 @@ color: white; }</string>
  <resources>
   <include location="res.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>demoGroup</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>warpGroup</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>56</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
