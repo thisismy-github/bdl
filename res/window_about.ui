@@ -234,7 +234,7 @@ color: white;
 }</string>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;line-height:0.65&quot;&gt;bdl 0.0.3 alpha&lt;/p&gt;&lt;p style=&quot;line-height:0.22&quot;&gt;&lt;span style=&quot; font-size:10.5pt;&quot;&gt;copyright (c) 2020 me__&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.thisismywebsite.net/&quot;&gt;&lt;span style=&quot; font-size:10.5pt; text-decoration: underline; color:#00aaff;&quot;&gt;https://www.thisismywebsite.net/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;line-height:0.65&quot;&gt;bdl 0.0.4 alpha&lt;/p&gt;&lt;p style=&quot;line-height:0.22&quot;&gt;&lt;span style=&quot; font-size:10.5pt;&quot;&gt;copyright (c) 2020 me__&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.thisismywebsite.net/&quot;&gt;&lt;span style=&quot; font-size:10.5pt; text-decoration: underline; color:#00aaff;&quot;&gt;https://www.thisismywebsite.net/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>

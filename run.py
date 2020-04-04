@@ -2,15 +2,34 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-import os, hashlib, shutil, platform, collections, configparser
+import os, subprocess, hashlib, shutil, platform, collections, configparser
 from names import portNames, iwadNames
-import subprocess
+import time
 
 # TODO: add full auto-sort for ports+iwads
 # TODO: add fallback for empty wad/port names
 
+bdlAutoDetectIWADs = True
+bdlRejectBadIWADs = True
+
+def run(port, iwad, complevel=None, pwads=None, deh=None,
+        settings=None, extra=None, noLaunch=False):
+    # TODO: add relative path variant?
+    command = '"' + os.path.abspath(port) + '"'  # intentionally different -> missing port causes TypeError here
+    command += f" -iwad {os.path.abspath(iwad)}"
+    if pwads: command += f" -file {pwads}"
+    if deh: command += f" -deh {deh}"
+    if complevel: command += f" {complevel}"
+    if settings: command += f" {settings}"
+    if extra: command += f" {extra}"
+
+    if not noLaunch: return subprocess.Popen(command)  # Popen prevents bdl from hanging while game is open
+    return command
+
+
+
 def showPopup(title, text, textInformative=None, textDetailed=None, textDetailedAutoOpen=False,
-              buttons=QMessageBox.Ok, defaultButton=QMessageBox.Ok, icon=QMessageBox.Warning):
+              buttons=QMessageBox.Ok, defaultButton=QMessageBox.Ok, icon=QMessageBox.Warning, modal=0):
     if not text:    # kills popup if no text is passed
         return
     msg = QMessageBox()
@@ -32,7 +51,20 @@ def showPopup(title, text, textInformative=None, textDetailed=None, textDetailed
             if button.text() == "Show Details...":
                 button.click()
 
+    msg.setWindowModality(modal)
     return msg.exec_()
+
+
+
+def updateBDLSettings(autoDetect, reject):
+    # hacky solution to allow bdlAutoDetectIWADs and bdlRejectBadIWADs
+    # to work with both the ui buttons AND drag and dropping files
+    global bdlAutoDetectIWADs
+    global bdlRejectBadIWADs
+    bdlAutoDetectIWADs = autoDetect
+    bdlRejectBadIWADs = reject
+
+
 
 def findSteamIWADs(widget):
     # TODO: add heretic, hexen, strife
@@ -88,26 +120,29 @@ def findSteamIWADs(widget):
 
 
 
-def readWadMD5Hash(wadToRead):      # wadToRead is the full path
+def readWadMD5Hash(wadToRead, reject):      # wadToRead is the full path
     if os.stat(wadToRead).st_size < 29000000:      # 28mb limit (strife 27mb)
         with open(wadToRead, "rb") as wad:
             md5 = hashlib.md5(wad.read()).hexdigest()
         if md5 in iwadNames:
             return iwadNames[md5][0]
+    if not reject:
+        return wadToRead.split("/")[-1]
+
     response = showPopup(title="Invalid IWAD!",
-                               text="Invalid and/or modified IWAD detected!",
-                               textInformative="The following IWAD was not detected as a valid IWAD and\n"
-                               "is either not a known IWAD or is modified in some way:\n\n"
-                               + wadToRead.split("/")[-1] +
-                               "\n\nIWADs are official game data files. They contain all of the\n"
-                                  "game's assets, and are used as the base for custom wads.\n"
-                                  "Examples: DOOM.WAD, DOOM2.WAD, TNT.WAD, etc.\n\n"
-                               "If this is an unofficial IWAD or intentionally modified, press\n"
-                               "OK to add it anyway. To disable this message, uncheck\n"
-                               "the \"Automatically detect IWADs\" setting under the bdl tab.\n\n"
-                               "You should never modify your IWADs.",
-                               buttons=QMessageBox.Ok|QMessageBox.Cancel,
-                               defaultButton=QMessageBox.Cancel)
+                         text="Invalid and/or modified IWAD detected!",
+                         textInformative="The following IWAD was not detected as a valid IWAD and\n"
+                         "is either not a known IWAD or is modified in some way:\n\n"
+                         + wadToRead.split("/")[-1] +
+                         "\n\nIWADs are official game data files. They contain all of the\n"
+                         "game's assets, and are used as the base for custom wads.\n"
+                         "Examples: DOOM.WAD, DOOM2.WAD, TNT.WAD, etc.\n\n"
+                         "If this is an unofficial IWAD or intentionally modified, press\n"
+                         "OK to add it anyway. To disable this message, uncheck\n"
+                         "the \"Automatically detect IWADs\" setting under the bdl tab.\n\n"
+                         "You should never modify your IWADs.",
+                         buttons=QMessageBox.Ok|QMessageBox.Cancel,
+                         defaultButton=QMessageBox.Cancel)
     if response == 1024:
         return wadToRead.split("/")[-1]
     else:
@@ -123,30 +158,15 @@ def readPortName(portToRead):
 
 
 
-def run(port, iwad, complevel=None, pwads=None, deh=None, warp=0, skill=0, extra=None, noLaunch=False):
-    # TODO: add relative path variant?
-    command = '"' + os.path.abspath(port) + '"'  # intentionally different -> missing port causes TypeError here
-    command += f" -iwad {os.path.abspath(iwad)}"
-    if pwads: command += f" -file {pwads}"
-    if deh: command += f" -deh {deh}"
-    if warp: command += f" -warp {warp}"
-    if skill: command += f" -skill {skill}"
-    if complevel: command += f" {complevel}"
-    if extra: command += f" {extra}"
-
-    #if not noLaunch: os.system(command)
-    if not noLaunch: subprocess.call(command)
-    return command
-
-
-
+# TODO: oh gosh none of this will work outside windows will it
 def addFile(widget, files=None, lastDir=None):
+    global bdlAutoDetectIWADs   # part of the hacky solution mentioned
+    global bdlRejectBadIWADs    # above in updateBDLSettings()
     newLastDir = lastDir
     ##### PWADS #####
     if widget.objectName() == "pwadList":
         if files is None:
-            f = QtWidgets.QFileDialog
-            files = f.getOpenFileNames(caption="Select one or more files to add",
+            files = QtWidgets.QFileDialog.getOpenFileNames(caption="Select one or more files to add",
                                                            directory=lastDir,
                                                            filter="DOOM files (*.wad *.zip *.deh *.bex *.pk3 *.pk7 *.pkz *.ipk7 *p7z);;"
                                                            "Vanilla Doom files (*.wad *.zip *.deh);;"
@@ -156,7 +176,7 @@ def addFile(widget, files=None, lastDir=None):
                                                            "Zip files (*.zip);;"
                                                            "WAD files (*.wad);;"
                                                            "All files (*)")[0]
-            try: newLastDir = "/".join(files[-1].split("/")[:-1])
+            try: newLastDir = (os.sep).join(files[-1].split("/")[:-1])
             except: pass
         for path in files:
             if path.endswith(".exe"):                               # ignore ports dropped onto list
@@ -175,18 +195,20 @@ def addFile(widget, files=None, lastDir=None):
                                                            "WAD files (*.wad);;"
                                                            "Zip files (*.zip);;"
                                                            "All files (*)")[0]
-            try: newLastDir = "/".join(files[-1].split("/")[:-1])
+            try: newLastDir = (os.sep).join(files[-1].split("/")[:-1])
             except: pass
         for path in files:
             if path.endswith(".exe"):       # ignore ports dropped onto list
                 continue
-            wadName = readWadMD5Hash(path)  # reads md5 hash of iwad to detect it
+            # reads md5 hash of iwad to detect it, if auto detection is enabled
+            wadName = readWadMD5Hash(path, bdlRejectBadIWADs) if bdlAutoDetectIWADs else path.split("/")[-1]
             if wadName == 4194304:          # 4194304 -> bad iwad and cancel was selected
                 continue
             item = QtWidgets.QListWidgetItem(wadName)
             item.setData(3, path)
             widget.addItem(item)
             widget.setCurrentItem(item)
+
     ##### SOURCE PORTS #####
     elif widget.objectName() == "portCombo":
         if files is None:
@@ -194,26 +216,54 @@ def addFile(widget, files=None, lastDir=None):
                                                            directory=lastDir,
                                                            filter="Executables (*.exe);;"
                                                            "All files (*)")[0]
-            try: newLastDir = "/".join(files[-1].split("/")[:-1])
+            try: newLastDir = (os.sep).join(files[-1].split("/")[:-1])
             except: pass
         for path in files:
             if not path.endswith(".exe"):   # ignore NON-ports dropped onto dropdown
                 continue
             widget.addItem(readPortName(path))
             widget.setItemData(widget.count()-1, path, 3)
+
+    ##### DEMOS #####
+    elif widget.objectName() == "demoRecordNameLineEdit":
+        previousDemoName = widget.text().split(os.sep)[-1]
+        demoDestination = QtWidgets.QFileDialog.getExistingDirectory(caption="Select a directory to save your demo",
+                                                                     directory=lastDir)
+        if demoDestination:     # check that a dir was actually picked, or else it will default to "."
+            try:
+                newLastDir = demoDestination
+                widget.setText(os.path.abspath(demoDestination) + os.sep + previousDemoName)
+                widget.setText(os.path.abspath(demoDestination) + os.sep + previousDemoName)
+            except:
+                widget.setText(os.path.abspath(demoDestination) + os.sep)
+
+    elif widget.objectName() == "demoPlayPathLineEdit":
+        if files is None:
+            files = QtWidgets.QFileDialog.getOpenFileName(caption="Select a demo file to play",
+                                                          directory=lastDir,
+                                                          filter="Doom demo files (*.lmp);;"
+                                                          "All files (*)")[0]
+        try: newLastDir = (os.sep).join(files.split("/")[:-1])
+        except: pass
+        if files:   # check that a file was actually picked, or else setText will empty the lineEdit
+            try: widget.setText(files)
+            except: pass
     return newLastDir
 
+
+
 def addFileFromConfig(widget, path, name, checked=True):
-    if widget.objectName() == "pwadList":
-        item = QtWidgets.QListWidgetItem(path.split("/")[-1])
-        item.setData(3, path)
-        item.setCheckState(QtCore.Qt.Checked if checked else QtCore.Qt.Unchecked)
-        widget.addItem(item)
-    elif widget.objectName() == "iwadList":
-        item = QtWidgets.QListWidgetItem(name)
-        item.setData(3, path)
-        widget.addItem(item)
-        widget.setCurrentItem(item)
-    elif widget.objectName() == "portCombo":
-        widget.addItem(name)
-        widget.setItemData(widget.count()-1, path, 3)
+    if os.path.exists(path):        # makes sure wad/port hasn't been misplaced
+        if widget.objectName() == "pwadList":
+            item = QtWidgets.QListWidgetItem(path.split("/")[-1])
+            item.setData(3, path)
+            item.setCheckState(QtCore.Qt.Checked if checked else QtCore.Qt.Unchecked)
+            widget.addItem(item)
+        elif widget.objectName() == "iwadList":
+            item = QtWidgets.QListWidgetItem(name)
+            item.setData(3, path)
+            widget.addItem(item)
+            widget.setCurrentItem(item)
+        elif widget.objectName() == "portCombo":
+            widget.addItem(name)
+            widget.setItemData(widget.count()-1, path, 3)

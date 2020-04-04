@@ -41,5 +41,7 @@ test-results.xml
 uitests/out/**
 !build/
 IWADs/
+*.cfg
 *.ini
+deadlines.txt
 reset.py
