@@ -2,14 +2,13 @@
 
 # Form implementation generated from reading ui file '.\res\window_main.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.14.2
 #
 # WARNING! All changes made in this file will be lost!
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import window_about, run
-import os, hashlib, configparser, subprocess, webbrowser
+
 
 class Ui_BDLMainWindow(object):
     def setupUi(self, BDLMainWindow):
@@ -94,22 +93,7 @@ class Ui_BDLMainWindow(object):
         self.leftVLayout.addLayout(self.pwadHLayout)
         self.pwadList = bdlListWidget(self.layoutWidget)
         self.pwadList.setMinimumSize(QtCore.QSize(0, 64))
-        self.pwadList.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.pwadList.setAcceptDrops(True)
-        self.pwadList.setStyleSheet("QListWidget {\n"
-"outline: 0; }\n"
-"\n"
-"QListWidget::indicator {\n"
-"width: 8px;\n"
-"height: 8px;\n"
-"right: -4px; }\n"
-"\n"
-"QListView::item:text {\n"
-"color: black;\n"
-"padding-left: -5px;\n"
-"padding-top: -1px; }\n"
-"\n"
-"QListWidget::indicator::checked { image: url(:/ui/checkbox_on6.png); }")
         self.pwadList.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.pwadList.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pwadList.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
@@ -159,6 +143,8 @@ class Ui_BDLMainWindow(object):
         self.portCombo.setObjectName("portCombo")
         self.rightVLayout.addWidget(self.portCombo)
         self.portRenameLineEdit = QtWidgets.QLineEdit(self.layoutWidget_2)
+        self.portRenameLineEdit.setToolTip("Enter a new name here and press enter when\n"
+"finished. Leave blank to not change the name.")
         self.portRenameLineEdit.setText("")
         self.portRenameLineEdit.setPlaceholderText("Enter new name")
         self.portRenameLineEdit.setObjectName("portRenameLineEdit")
@@ -282,53 +268,8 @@ class Ui_BDLMainWindow(object):
         self.gridLayout_8.setContentsMargins(-1, -1, -1, 3)
         self.gridLayout_8.setVerticalSpacing(4)
         self.gridLayout_8.setObjectName("gridLayout_8")
-        self.warpGroup = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_3)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.warpGroup.sizePolicy().hasHeightForWidth())
-        self.warpGroup.setSizePolicy(sizePolicy)
-        self.warpGroup.setMinimumSize(QtCore.QSize(130, 0))
-        self.warpGroup.setMaximumSize(QtCore.QSize(16777215, 13))
-        self.warpGroup.setTitle("Warp to level")
-        self.warpGroup.setCheckable(True)
-        self.warpGroup.setChecked(False)
-        self.warpGroup.setObjectName("warpGroup")
-        self.gridLayout_10 = QtWidgets.QGridLayout(self.warpGroup)
-        self.gridLayout_10.setContentsMargins(7, 5, -1, 8)
-        self.gridLayout_10.setVerticalSpacing(3)
-        self.gridLayout_10.setObjectName("gridLayout_10")
-        self.warpSkillLabel = QtWidgets.QLabel(self.warpGroup)
-        self.warpSkillLabel.setMaximumSize(QtCore.QSize(20, 16777215))
-        self.warpSkillLabel.setText("Skill")
-        self.warpSkillLabel.setObjectName("warpSkillLabel")
-        self.gridLayout_10.addWidget(self.warpSkillLabel, 1, 0, 1, 1)
-        self.warpMapLabel = QtWidgets.QLabel(self.warpGroup)
-        self.warpMapLabel.setMaximumSize(QtCore.QSize(20, 16777215))
-        self.warpMapLabel.setText("Map")
-        self.warpMapLabel.setObjectName("warpMapLabel")
-        self.gridLayout_10.addWidget(self.warpMapLabel, 0, 0, 1, 1)
-        self.warpMapCombo = QtWidgets.QComboBox(self.warpGroup)
-        self.warpMapCombo.setMinimumSize(QtCore.QSize(124, 0))
-        self.warpMapCombo.setObjectName("warpMapCombo")
-        self.warpMapCombo.addItem("")
-        self.warpMapCombo.setItemText(0, "")
-        self.gridLayout_10.addWidget(self.warpMapCombo, 0, 1, 1, 1)
-        self.warpSkillCombo = QtWidgets.QComboBox(self.warpGroup)
-        self.warpSkillCombo.setMinimumSize(QtCore.QSize(124, 0))
-        self.warpSkillCombo.setObjectName("warpSkillCombo")
-        self.warpSkillCombo.addItem("")
-        self.warpSkillCombo.setItemText(0, "I\'m Too Young To Die")
-        self.warpSkillCombo.addItem("")
-        self.warpSkillCombo.setItemText(1, "Hey, Not Too Rough")
-        self.warpSkillCombo.addItem("")
-        self.warpSkillCombo.setItemText(2, "Hurt Me Plenty")
-        self.warpSkillCombo.addItem("")
-        self.warpSkillCombo.setItemText(3, "Ultra-Violence")
-        self.warpSkillCombo.addItem("")
-        self.warpSkillCombo.setItemText(4, "NIGHTMARE!")
-        self.gridLayout_10.addWidget(self.warpSkillCombo, 1, 1, 1, 1)
-        self.gridLayout_8.addWidget(self.warpGroup, 1, 0, 1, 1)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_8.addItem(spacerItem7, 3, 0, 1, 1)
         self.demoGroup = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -337,7 +278,10 @@ class Ui_BDLMainWindow(object):
         self.demoGroup.setSizePolicy(sizePolicy)
         self.demoGroup.setMinimumSize(QtCore.QSize(130, 0))
         self.demoGroup.setMaximumSize(QtCore.QSize(16777215, 13))
-        self.demoGroup.setToolTip("")
+        self.demoGroup.setToolTip("Record a new or play an existing demo.\n"
+"Recording a new demo will automatically\n"
+"warp you to the opening map on skill 3,\n"
+"Hurt Me Plenty, unless otherwise specified.")
         self.demoGroup.setTitle("Record/Play Demo")
         self.demoGroup.setFlat(False)
         self.demoGroup.setCheckable(True)
@@ -348,13 +292,14 @@ class Ui_BDLMainWindow(object):
         self.gridLayout_9.setHorizontalSpacing(0)
         self.gridLayout_9.setVerticalSpacing(1)
         self.gridLayout_9.setObjectName("gridLayout_9")
-        self.demoPlayPathLineEdit = bdlLineEdit(self.demoGroup)
+        self.demoPlayPathLineEdit = bdlDemoLineEdit(self.demoGroup)
         self.demoPlayPathLineEdit.setMinimumSize(QtCore.QSize(50, 0))
         self.demoPlayPathLineEdit.setPlaceholderText("Path to demo")
         self.demoPlayPathLineEdit.setObjectName("demoPlayPathLineEdit")
         self.gridLayout_9.addWidget(self.demoPlayPathLineEdit, 1, 3, 1, 1)
         self.demoPlayBrowseButton = QtWidgets.QPushButton(self.demoGroup)
         self.demoPlayBrowseButton.setMaximumSize(QtCore.QSize(20, 18))
+        self.demoPlayBrowseButton.setToolTip("Browse for your demo file of choice.")
         self.demoPlayBrowseButton.setText("...")
         self.demoPlayBrowseButton.setObjectName("demoPlayBrowseButton")
         self.gridLayout_9.addWidget(self.demoPlayBrowseButton, 1, 4, 1, 1)
@@ -364,11 +309,17 @@ class Ui_BDLMainWindow(object):
         self.demoRecordNameLineEdit.setObjectName("demoRecordNameLineEdit")
         self.gridLayout_9.addWidget(self.demoRecordNameLineEdit, 0, 3, 1, 1)
         self.demoPlayRadio = QtWidgets.QRadioButton(self.demoGroup)
+        self.demoPlayRadio.setToolTip("Play an existing demo. Many parameters\n"
+"either do nothing or can interfere with\n"
+"the playing of a demo, so as a result,\n"
+"many of this menu\'s options are disabled\n"
+"or ignored while this option is selected.")
         self.demoPlayRadio.setText("Play")
         self.demoPlayRadio.setObjectName("demoPlayRadio")
         self.gridLayout_9.addWidget(self.demoPlayRadio, 1, 0, 1, 1)
         self.demoRecordBrowseButton = QtWidgets.QPushButton(self.demoGroup)
         self.demoRecordBrowseButton.setMaximumSize(QtCore.QSize(20, 18))
+        self.demoRecordBrowseButton.setToolTip("Browse for a directory to save your demo to.")
         self.demoRecordBrowseButton.setStyleSheet("QPushButton {\n"
 "padding-left: 0px; padding-right: 0px;\n"
 "}")
@@ -376,6 +327,10 @@ class Ui_BDLMainWindow(object):
         self.demoRecordBrowseButton.setObjectName("demoRecordBrowseButton")
         self.gridLayout_9.addWidget(self.demoRecordBrowseButton, 0, 4, 1, 1)
         self.demoRecordRadio = QtWidgets.QRadioButton(self.demoGroup)
+        self.demoRecordRadio.setToolTip("Record a new demo. Use the browse button\n"
+"to select a directory to save your demo to.\n"
+"Not including a name for your demo will\n"
+"default it to \"unnamed_demo.lmp\".")
         self.demoRecordRadio.setText("Record")
         self.demoRecordRadio.setChecked(True)
         self.demoRecordRadio.setObjectName("demoRecordRadio")
@@ -392,6 +347,8 @@ class Ui_BDLMainWindow(object):
         self.paramGroup.setToolTip("Change additional optional parameters\n"
 "to alter your game.")
         self.paramGroup.setTitle("Show more parameters")
+        self.paramGroup.setAlignment(QtCore.Qt.AlignCenter)
+        self.paramGroup.setFlat(True)
         self.paramGroup.setCheckable(True)
         self.paramGroup.setChecked(False)
         self.paramGroup.setObjectName("paramGroup")
@@ -450,8 +407,70 @@ class Ui_BDLMainWindow(object):
         self.paramNoSound.setObjectName("paramNoSound")
         self.gridLayout_5.addWidget(self.paramNoSound, 3, 0, 1, 1)
         self.gridLayout_8.addWidget(self.paramGroup, 2, 0, 1, 1)
-        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_8.addItem(spacerItem7, 3, 0, 1, 1)
+        self.warpGroup = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.warpGroup.sizePolicy().hasHeightForWidth())
+        self.warpGroup.setSizePolicy(sizePolicy)
+        self.warpGroup.setMinimumSize(QtCore.QSize(130, 0))
+        self.warpGroup.setMaximumSize(QtCore.QSize(16777215, 13))
+        self.warpGroup.setToolTip("Set the level and difficulty to start on.\n"
+"Enabling this will skip the main menu\n"
+"and automatically send you to your\n"
+"map and difficulty of choice.")
+        self.warpGroup.setTitle("Warp to level")
+        self.warpGroup.setCheckable(True)
+        self.warpGroup.setChecked(False)
+        self.warpGroup.setObjectName("warpGroup")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.warpGroup)
+        self.gridLayout_10.setContentsMargins(7, 5, -1, 8)
+        self.gridLayout_10.setVerticalSpacing(3)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.warpSkillLabel = QtWidgets.QLabel(self.warpGroup)
+        self.warpSkillLabel.setMaximumSize(QtCore.QSize(20, 16777215))
+        self.warpSkillLabel.setText("Skill")
+        self.warpSkillLabel.setObjectName("warpSkillLabel")
+        self.gridLayout_10.addWidget(self.warpSkillLabel, 1, 0, 1, 1)
+        self.warpMapLabel = QtWidgets.QLabel(self.warpGroup)
+        self.warpMapLabel.setMaximumSize(QtCore.QSize(20, 16777215))
+        self.warpMapLabel.setText("Map")
+        self.warpMapLabel.setObjectName("warpMapLabel")
+        self.gridLayout_10.addWidget(self.warpMapLabel, 0, 0, 1, 1)
+        self.warpMapCombo = QtWidgets.QComboBox(self.warpGroup)
+        self.warpMapCombo.setMinimumSize(QtCore.QSize(124, 0))
+        self.warpMapCombo.setToolTip("-warp [##] or [# #]\n"
+"\n"
+"Sets the level to start on. For Doom II and\n"
+"onward, the number used to warp is the\n"
+"actual map number (i.e. MAP25 -> -warp 25)\n"
+"whereas for the original Doom as well as Heretic,\n"
+"-warp uses the episode number and map number\n"
+"separated by a space (i.e. E3M2 -> -warp 3 2).")
+        self.warpMapCombo.setObjectName("warpMapCombo")
+        self.warpMapCombo.addItem("")
+        self.warpMapCombo.setItemText(0, "")
+        self.gridLayout_10.addWidget(self.warpMapCombo, 0, 1, 1, 1)
+        self.warpSkillCombo = QtWidgets.QComboBox(self.warpGroup)
+        self.warpSkillCombo.setMinimumSize(QtCore.QSize(124, 0))
+        self.warpSkillCombo.setToolTip("-skill [1-5]\n"
+"\n"
+"Sets the difficulty. Setting the skill without\n"
+"selecting a map will simply warp you to the\n"
+"first map.")
+        self.warpSkillCombo.setObjectName("warpSkillCombo")
+        self.warpSkillCombo.addItem("")
+        self.warpSkillCombo.setItemText(0, "I\'m Too Young To Die")
+        self.warpSkillCombo.addItem("")
+        self.warpSkillCombo.setItemText(1, "Hey, Not Too Rough")
+        self.warpSkillCombo.addItem("")
+        self.warpSkillCombo.setItemText(2, "Hurt Me Plenty")
+        self.warpSkillCombo.addItem("")
+        self.warpSkillCombo.setItemText(3, "Ultra-Violence")
+        self.warpSkillCombo.addItem("")
+        self.warpSkillCombo.setItemText(4, "NIGHTMARE!")
+        self.gridLayout_10.addWidget(self.warpSkillCombo, 1, 1, 1, 1)
+        self.gridLayout_8.addWidget(self.warpGroup, 1, 0, 1, 1)
         self.gridLayout_11.addLayout(self.gridLayout_8, 0, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents_3)
         self.gridLayout_4.addWidget(self.scrollArea, 0, 0, 1, 1)
@@ -462,73 +481,157 @@ class Ui_BDLMainWindow(object):
         self.tabBDL = QtWidgets.QWidget()
         self.tabBDL.setObjectName("tabBDL")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.tabBDL)
-        self.gridLayout_6.setContentsMargins(3, 12, 3, 12)
+        self.gridLayout_6.setContentsMargins(9, -1, 9, 10)
         self.gridLayout_6.setHorizontalSpacing(0)
+        self.gridLayout_6.setVerticalSpacing(1)
         self.gridLayout_6.setObjectName("gridLayout_6")
+        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem8, 2, 1, 1, 1)
         self.commandLinePreviewButton = QtWidgets.QPushButton(self.tabBDL)
-        self.commandLinePreviewButton.setMaximumSize(QtCore.QSize(126, 16777215))
+        self.commandLinePreviewButton.setMaximumSize(QtCore.QSize(126, 21))
         self.commandLinePreviewButton.setText("Preview Command Line")
         self.commandLinePreviewButton.setObjectName("commandLinePreviewButton")
-        self.gridLayout_6.addWidget(self.commandLinePreviewButton, 3, 1, 1, 1)
-        self.aboutButton = QtWidgets.QPushButton(self.tabBDL)
-        self.aboutButton.setMaximumSize(QtCore.QSize(46, 21))
-        self.aboutButton.setText("About")
-        self.aboutButton.setObjectName("aboutButton")
-        self.gridLayout_6.addWidget(self.aboutButton, 3, 0, 1, 1)
-        self.formLayout = QtWidgets.QFormLayout()
-        self.formLayout.setVerticalSpacing(2)
-        self.formLayout.setObjectName("formLayout")
-        self.bdlAutoClose = QtWidgets.QCheckBox(self.tabBDL)
-        self.bdlAutoClose.setToolTip("Close BDL after launching a game. BDL\n"
-"will only close once the game is closed.")
-        self.bdlAutoClose.setText("Close on launch")
-        self.bdlAutoClose.setObjectName("bdlAutoClose")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.bdlAutoClose)
-        self.bdlForceCaps = QtWidgets.QCheckBox(self.tabBDL)
-        self.bdlForceCaps.setToolTip("Force the word \"Doom\" to be automatically\n"
+        self.gridLayout_6.addWidget(self.commandLinePreviewButton, 2, 2, 1, 1)
+        self.scrollArea_3 = QtWidgets.QScrollArea(self.tabBDL)
+        self.scrollArea_3.setWidgetResizable(True)
+        self.scrollArea_3.setObjectName("scrollArea_3")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 166, 136))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.gridLayout_12 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
+        self.gridLayout_12.setContentsMargins(3, 2, 0, 2)
+        self.gridLayout_12.setSpacing(0)
+        self.gridLayout_12.setObjectName("gridLayout_12")
+        self.bdlCapitalization = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+        self.bdlCapitalization.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.bdlCapitalization.setToolTip("Force the word \"Doom\" to be automatically\n"
 "capitalized in the selected style for all currently\n"
 "added and any future added IWADs.")
-        self.bdlForceCaps.setText("Force capitalization:")
-        self.bdlForceCaps.setChecked(True)
-        self.bdlForceCaps.setObjectName("bdlForceCaps")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.bdlForceCaps)
-        self.bdlForceCapsCombo = QtWidgets.QComboBox(self.tabBDL)
-        self.bdlForceCapsCombo.setMaximumSize(QtCore.QSize(55, 17))
-        self.bdlForceCapsCombo.setCurrentText("Doom")
-        self.bdlForceCapsCombo.setObjectName("bdlForceCapsCombo")
-        self.bdlForceCapsCombo.addItem("")
-        self.bdlForceCapsCombo.setItemText(0, "Doom")
-        self.bdlForceCapsCombo.addItem("")
-        self.bdlForceCapsCombo.setItemText(1, "DOOM")
-        self.bdlForceCapsCombo.addItem("")
-        self.bdlForceCapsCombo.setItemText(2, "DooM")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.bdlForceCapsCombo)
-        self.bdlAutoDetectIWADs = QtWidgets.QCheckBox(self.tabBDL)
-        self.bdlAutoDetectIWADs.setToolTip("Generates and reads the md5 hashes\n"
+        self.bdlCapitalization.setText("Capitalization:")
+        self.bdlCapitalization.setChecked(True)
+        self.bdlCapitalization.setObjectName("bdlCapitalization")
+        self.gridLayout_12.addWidget(self.bdlCapitalization, 3, 0, 1, 1)
+        self.bdlDetectIWADs = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+        self.bdlDetectIWADs.setToolTip("Generates and reads the md5 hashes\n"
 "of IWADs to validate and name them.\n"
 "\n"
 "May cause minor hiccups when adding\n"
 "IWADs on older machines.")
-        self.bdlAutoDetectIWADs.setText("Automatically detect IWADs")
-        self.bdlAutoDetectIWADs.setChecked(True)
-        self.bdlAutoDetectIWADs.setObjectName("bdlAutoDetectIWADs")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.SpanningRole, self.bdlAutoDetectIWADs)
-        self.bdlRejectBadIWADs = QtWidgets.QCheckBox(self.tabBDL)
+        self.bdlDetectIWADs.setText("Detect IWADs")
+        self.bdlDetectIWADs.setChecked(True)
+        self.bdlDetectIWADs.setObjectName("bdlDetectIWADs")
+        self.gridLayout_12.addWidget(self.bdlDetectIWADs, 2, 0, 1, 1)
+        self.bdlPWADsCheckable = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+        self.bdlPWADsCheckable.setToolTip("Allows users to check off which PWADs\n"
+"they wish to load on the next launch.")
+        self.bdlPWADsCheckable.setText("PWADs can be disabled")
+        self.bdlPWADsCheckable.setChecked(True)
+        self.bdlPWADsCheckable.setObjectName("bdlPWADsCheckable")
+        self.gridLayout_12.addWidget(self.bdlPWADsCheckable, 1, 0, 1, 2)
+        self.bdlUpdateButton = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
+        self.bdlUpdateButton.setEnabled(False)
+        self.bdlUpdateButton.setMaximumSize(QtCore.QSize(51, 21))
+        self.bdlUpdateButton.setToolTip("No update available.")
+        self.bdlUpdateButton.setStyleSheet("QPushButton::enabled {\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0, 0, 225, 255), stop:1 rgba(200, 200, 0, 255));\n"
+"color: rgb(0, 255, 0);\n"
+"font: bold 8pt;\n"
+"}")
+        self.bdlUpdateButton.setText("Update")
+        self.bdlUpdateButton.setObjectName("bdlUpdateButton")
+        self.gridLayout_12.addWidget(self.bdlUpdateButton, 8, 1, 1, 1)
+        self.bdlCapitalizationCombo = QtWidgets.QComboBox(self.scrollAreaWidgetContents)
+        self.bdlCapitalizationCombo.setMaximumSize(QtCore.QSize(61, 17))
+        self.bdlCapitalizationCombo.setCurrentText("Doom")
+        self.bdlCapitalizationCombo.setObjectName("bdlCapitalizationCombo")
+        self.bdlCapitalizationCombo.addItem("")
+        self.bdlCapitalizationCombo.setItemText(0, "Doom")
+        self.bdlCapitalizationCombo.addItem("")
+        self.bdlCapitalizationCombo.setItemText(1, "DOOM")
+        self.bdlCapitalizationCombo.addItem("")
+        self.bdlCapitalizationCombo.setItemText(2, "DooM")
+        self.gridLayout_12.addWidget(self.bdlCapitalizationCombo, 3, 1, 1, 1)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_12.addItem(spacerItem9, 11, 0, 1, 1)
+        self.bdlAutoClose = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+        self.bdlAutoClose.setToolTip("Close BDL after launching a game. BDL\n"
+"will only close once the game is closed.")
+        self.bdlAutoClose.setText("Close on launch")
+        self.bdlAutoClose.setObjectName("bdlAutoClose")
+        self.gridLayout_12.addWidget(self.bdlAutoClose, 0, 0, 1, 2)
+        self.bdlRejectBadIWADs = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+        self.bdlRejectBadIWADs.setMaximumSize(QtCore.QSize(64, 16777215))
         self.bdlRejectBadIWADs.setToolTip("Displays a warning when an\n"
 "invalid IWAD is detected.")
-        self.bdlRejectBadIWADs.setText("Reject bad IWADs")
+        self.bdlRejectBadIWADs.setText("Warnings")
         self.bdlRejectBadIWADs.setChecked(True)
         self.bdlRejectBadIWADs.setObjectName("bdlRejectBadIWADs")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.SpanningRole, self.bdlRejectBadIWADs)
-        self.gridLayout_6.addLayout(self.formLayout, 2, 0, 1, 2)
+        self.gridLayout_12.addWidget(self.bdlRejectBadIWADs, 2, 1, 1, 1)
+        self.bdlUpdateCheckNowButton = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
+        self.bdlUpdateCheckNowButton.setMaximumSize(QtCore.QSize(64, 19))
+        self.bdlUpdateCheckNowButton.setToolTip("")
+        self.bdlUpdateCheckNowButton.setText("Check Now")
+        self.bdlUpdateCheckNowButton.setObjectName("bdlUpdateCheckNowButton")
+        self.gridLayout_12.addWidget(self.bdlUpdateCheckNowButton, 6, 1, 1, 1)
+        self.bdlUpdateLastCheckLabel = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        self.bdlUpdateLastCheckLabel.setMaximumSize(QtCore.QSize(107, 16777215))
+        self.bdlUpdateLastCheckLabel.setText("Last check: N/A")
+        self.bdlUpdateLastCheckLabel.setObjectName("bdlUpdateLastCheckLabel")
+        self.gridLayout_12.addWidget(self.bdlUpdateLastCheckLabel, 8, 0, 1, 1)
+        self.line = QtWidgets.QFrame(self.scrollAreaWidgetContents)
+        self.line.setMinimumSize(QtCore.QSize(0, 6))
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.gridLayout_12.addWidget(self.line, 5, 0, 1, 2)
+        self.bdlAutoUpdateCheck = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+        self.bdlAutoUpdateCheck.setMaximumSize(QtCore.QSize(113, 16777215))
+        self.bdlAutoUpdateCheck.setToolTip("Automatically check for an update\n"
+"on startup once per day.")
+        self.bdlAutoUpdateCheck.setText("Update check")
+        self.bdlAutoUpdateCheck.setChecked(True)
+        self.bdlAutoUpdateCheck.setObjectName("bdlAutoUpdateCheck")
+        self.gridLayout_12.addWidget(self.bdlAutoUpdateCheck, 6, 0, 1, 1)
+        self.bdlDownloadLayout = QtWidgets.QFormLayout()
+        self.bdlDownloadLayout.setHorizontalSpacing(29)
+        self.bdlDownloadLayout.setObjectName("bdlDownloadLayout")
+        self.bdlDownloadLabel = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        self.bdlDownloadLabel.setMaximumSize(QtCore.QSize(115, 16777215))
+        self.bdlDownloadLabel.setText("Downloading...")
+        self.bdlDownloadLabel.setObjectName("bdlDownloadLabel")
+        self.bdlDownloadLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.bdlDownloadLabel)
+        self.bdlDownloadProgress = QtWidgets.QProgressBar(self.scrollAreaWidgetContents)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.bdlDownloadProgress.sizePolicy().hasHeightForWidth())
+        self.bdlDownloadProgress.setSizePolicy(sizePolicy)
+        self.bdlDownloadProgress.setMinimumSize(QtCore.QSize(51, 16))
+        self.bdlDownloadProgress.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.bdlDownloadProgress.setMaximum(0)
+        self.bdlDownloadProgress.setAlignment(QtCore.Qt.AlignCenter)
+        self.bdlDownloadProgress.setFormat("%p%")
+        self.bdlDownloadProgress.setObjectName("bdlDownloadProgress")
+        self.bdlDownloadLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.bdlDownloadProgress)
+        self.gridLayout_12.addLayout(self.bdlDownloadLayout, 10, 0, 1, 2)
+        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents)
+        self.gridLayout_6.addWidget(self.scrollArea_3, 0, 0, 1, 3)
+        self.aboutButton = QtWidgets.QPushButton(self.tabBDL)
+        self.aboutButton.setMaximumSize(QtCore.QSize(46, 21))
+        self.aboutButton.setText("About")
+        self.aboutButton.setObjectName("aboutButton")
+        self.gridLayout_6.addWidget(self.aboutButton, 2, 0, 1, 1)
         self.tabWidget.addTab(self.tabBDL, "bdl")
         self.gridLayout_3.addWidget(self.tabWidget, 0, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout_3, 0, 0, 1, 1)
         BDLMainWindow.setCentralWidget(self.centralwidget)
-        self.portMenu = QtWidgets.QMenu()
+        self.menuBar = QtWidgets.QMenuBar(BDLMainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 193, 21))
+        self.menuBar.setObjectName("menuBar")
+        self.portMenu = QtWidgets.QMenu(self.menuBar)
         self.portMenu.setTitle("Source Ports")
         self.portMenu.setObjectName("portMenu")
-        self.iwadMenu = QtWidgets.QMenu()
+        self.iwadMenu = QtWidgets.QMenu(self.menuBar)
         self.iwadMenu.setTitle("IWADs")
         self.iwadMenu.setObjectName("iwadMenu")
         self.iwadMenuSteam = QtWidgets.QMenu(self.iwadMenu)
@@ -537,6 +640,7 @@ class Ui_BDLMainWindow(object):
         self.iwadMenuDeals = QtWidgets.QMenu(self.iwadMenu)
         self.iwadMenuDeals.setTitle("Check for deals...")
         self.iwadMenuDeals.setObjectName("iwadMenuDeals")
+        BDLMainWindow.setMenuBar(self.menuBar)
         self.portAdd = QtWidgets.QAction(BDLMainWindow)
         self.portAdd.setText("Add existing source ports")
         self.portAdd.setObjectName("portAdd")
@@ -615,464 +719,22 @@ class Ui_BDLMainWindow(object):
         self.iwadMenu.addSeparator()
         self.iwadMenu.addAction(self.iwadMenuSteam.menuAction())
         self.iwadMenu.addAction(self.iwadMenuDeals.menuAction())
+        self.menuBar.addAction(self.portMenu.menuAction())
+        self.menuBar.addAction(self.iwadMenu.menuAction())
 
+        self.retranslateUi(BDLMainWindow)
         self.tabWidget.setCurrentIndex(0)
         self.warpSkillCombo.setCurrentIndex(3)
         self.demoGroup.toggled['bool'].connect(self.warpGroup.setChecked)
-        self.bdlAutoDetectIWADs.toggled['bool'].connect(self.bdlRejectBadIWADs.setEnabled)
-        self.bdlAutoDetectIWADs.toggled['bool'].connect(self.bdlRejectBadIWADs.setChecked)
+        self.demoPlayRadio.toggled['bool'].connect(self.warpGroup.setDisabled)
+        self.bdlDetectIWADs.toggled['bool'].connect(self.bdlRejectBadIWADs.setEnabled)
         QtCore.QMetaObject.connectSlotsByName(BDLMainWindow)
 
-
-
-
-
-
-
-###############################################################################
-        self.loadConfig()
-
-        self.complevelCombo.setItemData(0, "-complevel 2", 3)
-        self.complevelCombo.setItemData(1, "-complevel 3", 3)
-        self.complevelCombo.setItemData(2, "-complevel 4", 3)
-        self.complevelCombo.setItemData(3, "-complevel 9", 3)
-        self.complevelCombo.setItemData(4, "-complevel 11", 3)
-
-        self.launchButton.clicked.connect(self.prepareLaunch)
-        self.aboutButton.clicked.connect(self.openAboutDialog)
-
-        self.pwadAdd.clicked.connect(lambda: self.prepareAddFile(self.pwadList))
-        self.pwadRem.clicked.connect(lambda: self.removeListItem(self.pwadList))
-
-        self.iwadMenuButton.setMenu(self.iwadMenu)
-        self.iwadList.itemDoubleClicked.connect(self.resetIWADFlags)
-        self.iwadList.model().rowsInserted.connect(self.changeDoomCapitalization)
-        self.iwadAdd.clicked.connect(lambda: self.prepareAddFile(self.iwadList))
-        self.iwadRem.clicked.connect(lambda: self.removeListItem(self.iwadList))
-        # TODO: crossplatform -> explorer /select is windows only
-        self.iwadBrowseLocalFiles.triggered.connect(lambda: subprocess.Popen(f'explorer /select,{os.path.abspath(self.iwadList.currentItem().data(3))}'))
-        self.iwadSteamUDoom.triggered.connect(lambda: webbrowser.open('https://store.steampowered.com/app/2280/Ultimate_Doom/'))
-        self.iwadSteamDoom2.triggered.connect(lambda: webbrowser.open('https://store.steampowered.com/app/2300/DOOM_II/'))
-        self.iwadSteamFinalDoom.triggered.connect(lambda: webbrowser.open('https://store.steampowered.com/app/2290/Final_DOOM/'))
-        self.iwadSteamClassicComplete.triggered.connect(lambda: webbrowser.open('https://store.steampowered.com/sub/18397/'))
-        self.iwadDealsUDoom.triggered.connect(lambda: webbrowser.open('https://isthereanydeal.com/game/ultimatedoom/info/'))
-        self.iwadDealsDoom2.triggered.connect(lambda: webbrowser.open('https://isthereanydeal.com/game/doomii/info/'))
-        self.iwadDealsFinalDoom.triggered.connect(lambda: webbrowser.open('https://isthereanydeal.com/game/finaldoom/info/'))
-        self.iwadDealsClassicComplete.triggered.connect(lambda: webbrowser.open('https://isthereanydeal.com/game/doomclassiccomplete/info/'))
-
-        self.portMenuButton.setMenu(self.portMenu)
-        self.portAdd.triggered.connect(lambda: self.prepareAddFile(self.portCombo))
-        self.portRem.triggered.connect(lambda: self.portCombo.removeItem(self.portCombo.currentIndex()))
-        # TODO: again, windows only ^^^
-        self.portBrowseLocalFiles.triggered.connect(lambda: subprocess.Popen(f'explorer /select,{os.path.abspath(self.portCombo.currentData(3))}'))
-        self.portRename.triggered.connect(self.renamePort)
-        self.portRenameLineEdit.returnPressed.connect(self.renamePort)
-        self.portMoveUp.triggered.connect(lambda: self.movePort('up'))
-        self.portMoveDown.triggered.connect(lambda: self.movePort('down'))
-        self.portMoveToTop.triggered.connect(lambda: self.movePort('top'))
-        self.portMoveToBottom.triggered.connect(lambda: self.movePort('bottom'))
-
-        self.demoRecordBrowseButton.clicked.connect(lambda: self.prepareAddFile(self.demoRecordNameLineEdit))
-        self.demoPlayBrowseButton.clicked.connect(lambda: self.prepareAddFile(self.demoPlayPathLineEdit))
-
-        self.demoGroup.toggled.connect(lambda: self.demoGroup.setMaximumHeight(80 if self.demoGroup.isChecked() else 13))
-        self.warpGroup.toggled.connect(lambda: self.warpGroup.setMaximumHeight(69 if self.warpGroup.isChecked() else 13))
-        self.paramGroup.toggled.connect(lambda: self.paramGroup.setMaximumHeight(16777215 if self.paramGroup.isChecked() else 13))
-
-        self.bdlForceCaps.toggled.connect(self.changeDoomCapitalization)
-        self.bdlForceCapsCombo.currentIndexChanged.connect(self.changeDoomCapitalization)
-        self.bdlAutoDetectIWADs.toggled.connect(lambda: run.updateBDLSettings(self.bdlAutoDetectIWADs.isChecked(), self.bdlRejectBadIWADs.isChecked()))
-        self.bdlRejectBadIWADs.toggled.connect(lambda: run.updateBDLSettings(self.bdlAutoDetectIWADs.isChecked(), self.bdlRejectBadIWADs.isChecked()))
-
-        self.commandLinePreviewButton.clicked.connect(lambda: run.showPopup(title="Command line preview",
-                                                                            text=self.prepareLaunch(noLaunch=True),
-                                                                            icon=QtWidgets.QMessageBox.Information))
-
-        # Extra stuff
-        self.demoRecordNameLineEdit.setTextMargins(0,0,8,0)
-        self.portRenameLineEdit.hide()
-        self.lastDir = '.'          # Not tied to an existing widget
-        self.autoRecording = False     # Not in config
-        self.autoRecordTimer = QtCore.QTimer()
-        self.autoRecordTimer.timeout.connect(self.autoRecordTimeout)
-        self.autoRecordProcess = None
-        self.autoRecordDemoAttempt = 1
-
-
-
-    def firstTimeSetup(self):
-        # TODO: also check updates
-        #if os.path.exists("%APPDATA%\\Vectec Software\\qZDL.ini"):
-        #    pass        # TODO: s t e a l ZDL's config
-        #else:
-        run.findSteamIWADs(self.iwadList)
-
-
-
-    def loadConfig(self):
-        if not os.path.exists("bdl.ini"):
-            self.firstTimeSetup()
-        else:
-            config = configparser.ConfigParser()
-            config.read("bdl.ini")
-
-            # load saved pwads/iwads/ports
-            if 'bdl.iwads' in config:
-                index = 0
-                while config['bdl.iwads'].get(f'iwadpath{index}'):
-                    try:
-                        run.addFileFromConfig(self.iwadList,
-                                              path=config['bdl.iwads'].get(f'iwadpath{index}'),
-                                              name=config['bdl.iwads'].get(f'iwadname{index}'))  # TODO: fallback?
-                    except:
-                        print("iwad:",sys.exc_info()[0])   # TODO: clean up error stuff here
-                    index+=1
-            if 'bdl.pwads' in config:
-                index = 0
-                while config['bdl.pwads'].get(f'pwadpath{index}'):
-                    try:
-                        run.addFileFromConfig(self.pwadList,
-                                              path=config['bdl.pwads'].get(f'pwadpath{index}'),
-                                              name=None,
-                                              checked=config['bdl.pwads'].getboolean(f'pwadchecked{index}'))
-                    except:
-                        print("pwad:",sys.exc_info()[0])
-                    index+=1
-            if 'bdl.ports' in config:
-                index = 0
-                while config['bdl.ports'].get(f'portpath{index}'):
-                    try:
-                        run.addFileFromConfig(self.portCombo,
-                                              path=config['bdl.ports'].get(f'portpath{index}'),
-                                              name=config['bdl.ports'].get(f'portname{index}'))
-                    except:
-                        print("port:",sys.exc_info()[0])
-                    index+=1
-
-            # set window size/pos, splitter sizes, other settings
-            if 'bdl.general' in config:
-                windowSizeX, windowSizeY = config['bdl.general'].get('windowsize',fallback='225,247').split(",")
-                BDLMainWindow.resize(int(windowSizeX), int(windowSizeY))
-                windowPosX, windowPosY = config['bdl.general'].get('windowpos',fallback='350,250').split(",")
-                BDLMainWindow.move(int(windowPosX), int(windowPosY))
-
-                # each setting is wrapped in a try-except block to restore it to the default
-                # set in Qt designer when the UI was created in case of user tampering
-                general = config['bdl.general']
-                try: self.splitter.setSizes(list(int(size) for size in general.get('lastsplittersize').split(',')))
-                except: pass
-                try: self.lastDir = general.get('lastdir', fallback='.')
-                except: pass
-                try: self.bdlAutoClose.setChecked(general.getboolean('autoclose', fallback=False))
-                except: pass
-                try: self.bdlForceCaps.setChecked(general.getboolean('forcecaps', fallback=True))
-                except: pass
-                try: self.bdlForceCapsCombo.setCurrentIndex(general.getint('forcecapsindex', fallback=0))
-                except: pass
-                try: self.bdlAutoDetectIWADs.setChecked(general.getboolean('autodetectiwads', fallback=True))
-                except: pass
-                try: self.bdlRejectBadIWADs.setChecked(general.getboolean('rejectbadiwads', fallback=True))
-                except: pass
-
-            if 'bdl.save' in config:
-                save = config['bdl.save']
-                try: self.parameterLineEdit.setText(save.get('extra', fallback=''))
-                except: pass
-                try: self.portCombo.setCurrentIndex(save.getint('portindex', fallback=0))
-                except: pass
-                try: self.iwadList.setCurrentRow(save.getint('iwadindex', fallback=0))
-                except: pass
-                try: self.complevelCombo.setCurrentIndex(save.getint('complevelindex', fallback=0))
-                except: pass
-
-                try: self.demoGroup.setChecked(save.getboolean('demoenabled', fallback=False))
-                except: pass
-                try: self.demoRecordRadio.setChecked(save.getboolean('demorecord', fallback=False))
-                except: pass
-                try: self.demoRecordNameLineEdit.setText(save.get('demorecordname', fallback=''))
-                except: pass
-                try: self.demoPlayRadio.setChecked(save.getboolean('demoplay', fallback=False))
-                except: pass
-                try: self.demoPlayPathLineEdit.setText(save.get('demoplaypath', fallback=''))
-                except: pass
-                try: self.demoAutoRecordCheck.setChecked(save.getboolean('demoautorecord', fallback=False))
-                except: pass
-
-                try: self.warpGroup.setChecked(save.getboolean('warpenabled', fallback=False))
-                except: pass
-                #try: self.warpMapCombo.setCurrentIndex(save.getint('warp', fallback=0))
-                #except: pass
-                try: self.warpSkillCombo.setCurrentIndex((save.getint('skill', fallback=4))-1)
-                except: pass    # skill config is 1-5 instead of index (0-4) to match up with how doom reads the -skill parameter
-
-            if 'bdl.moreparameters' in config:
-                params = config['bdl.moreparameters']
-                try: self.paramGroup.setChecked(params.getboolean('showmoreparameters', fallback=False))
-                except: pass
-                try: self.paramFast.setChecked(params.getboolean('fast', fallback=False))
-                except: pass
-                try: self.paramRespawn.setChecked(params.getboolean('respawn', fallback=False))
-                except: pass
-                try: self.paramSoloNet.setChecked(params.getboolean('solo-net', fallback=False))
-                except: pass
-                try: self.paramNoMonsters.setChecked(params.getboolean('nomonsters', fallback=False))
-                except: pass
-                try: self.paramNoMusic.setChecked(params.getboolean('nomusic', fallback=False))
-                except: pass
-                try: self.paramNoSFX.setChecked(params.getboolean('nosfx', fallback=False))
-                except: pass
-                try: self.paramNoSound.setChecked(params.getboolean('nosound', fallback=False))
-                except: pass
-
-            self.demoGroup.setMaximumHeight(80 if self.demoGroup.isChecked() else 13)
-            self.warpGroup.setMaximumHeight(69 if self.warpGroup.isChecked() else 13)
-            self.paramGroup.setMaximumHeight(16777215 if self.paramGroup.isChecked() else 13)
-            run.updateBDLSettings(self.bdlAutoDetectIWADs, self.bdlRejectBadIWADs)
-
-
-
-    def saveConfig(self):       # TODO: add md5 check here? might not save time
-        config = configparser.ConfigParser()
-        config['bdl.general'] = {}
-        general = config['bdl.general']
-        general['lastdir'] = self.lastDir
-        general['autoclose'] = str(self.bdlAutoClose.isChecked())
-        general['forcecaps'] = str(self.bdlForceCaps.isChecked())
-        general['forcecapsindex'] = str(self.bdlForceCapsCombo.currentIndex())
-        general['autodetectiwads'] = str(self.bdlAutoDetectIWADs.isChecked())
-        general['rejectbadiwads'] = str(self.bdlRejectBadIWADs.isChecked())
-
-        general['windowpos'] = str(BDLMainWindow.x()-1) + ',' + str(BDLMainWindow.y()-31)   # -1 and -31 due to unknown offset
-        general['windowsize'] = str(self.centralwidget.frameGeometry().width()) + ',' + str(self.centralwidget.frameGeometry().height())
-        general['lastsplittersize'] = ','.join(str(size) for size in self.splitter.sizes())
-
-        config['bdl.save'] = {}
-        save = config['bdl.save']
-        save['extra'] = self.parameterLineEdit.text()
-        save['portindex'] = str(self.portCombo.currentIndex())
-        save['iwadindex'] = str(self.iwadList.currentRow())
-        save['complevelindex'] = str(self.complevelCombo.currentIndex())
-        save['demoenabled'] = str(self.demoGroup.isChecked())
-        save['demorecord'] = str(self.demoRecordRadio.isChecked())
-        save['demorecordname'] = self.demoRecordNameLineEdit.text()
-        save['demoplay'] = str(self.demoPlayRadio.isChecked())
-        save['demoplaypath'] = self.demoPlayPathLineEdit.text()
-        save['demoautorecord'] = str(self.demoAutoRecordCheck.isChecked())
-        save['warpenabled'] = str(self.warpGroup.isChecked())
-        save['warp'] = str(self.warpMapCombo.currentIndex())
-        save['skill'] = str(self.warpSkillCombo.currentIndex()+1)   # +1 to negate the -1 in loadConfig()
-
-        config['bdl.moreparameters'] = {}
-        params = config['bdl.moreparameters']
-        params['showmoreparameters'] = str(self.paramGroup.isChecked())
-        params['fast'] = str(self.paramFast.isChecked())
-        params['respawn'] = str(self.paramRespawn.isChecked())
-        params['solo-net'] = str(self.paramSoloNet.isChecked())
-        params['nomonsters'] = str(self.paramNoMonsters.isChecked())
-        params['nomusic'] = str(self.paramNoMusic.isChecked())
-        params['nosfx'] = str(self.paramNoSFX.isChecked())
-        params['nosound'] = str(self.paramNoSound.isChecked())
-
-        # loop through file widgets and save all wads/ports and their properties
-        config['bdl.iwads'] = {}
-        config['bdl.pwads'] = {}
-        config['bdl.ports'] = {}
-        for i, iwad in enumerate(self.getListWidgetItems(self.iwadList)):
-            config['bdl.iwads'][f'iwadname{i}'] = iwad.text()
-            config['bdl.iwads'][f'iwadpath{i}'] = iwad.data(3)
-        for i, pwad in enumerate(self.getListWidgetItems(self.pwadList)):
-            config['bdl.pwads'][f'pwadchecked{i}'] = 'True' if pwad.checkState() == 2 else 'False'
-            config['bdl.pwads'][f'pwadpath{i}'] = pwad.data(3)
-        for i in range(self.portCombo.count()):
-            config['bdl.ports'][f'portname{i}'] = self.portCombo.itemText(i)
-            config['bdl.ports'][f'portpath{i}'] = self.portCombo.itemData(i,3)
-        with open('bdl.ini', 'w') as ini:
-            config.write(ini)
-
-
-
-    def prepareLaunch(self, noLaunch=False):
-        # TODO: add relative path variant?
-        activePWADs = ""
-        activeDEH = ""
-        activeSettings = ""
-        for i in range(self.pwadList.count()):
-            pwad = self.pwadList.item(i)
-            if pwad.checkState() == 2:      # 2 -> item is checked, isChecked() not available
-                filePath = pwad.data(3)
-                if filePath.endswith('.deh') or filePath.endswith('.bex'):
-                    activeDEH += os.path.abspath(filePath) + " "
-                else:
-                    activePWADs += os.path.abspath(filePath) + " "
-
-        if self.demoGroup.isChecked():
-            if self.demoRecordRadio.isChecked():
-                #if self.demoAutoRecordCheck.isChecked() and not isinstance(demoAttempt, int):
-                #    self.autoRecordDemoAttempt     # if auto-record is checked and demoAttempt is "", start at 1
-                demoDestination = self.demoRecordNameLineEdit.text().replace('.lmp', '').split(os.sep)
-                demoPath = (os.sep).join(demoDestination[:-1])
-                demoName = demoDestination[-1]
-                for invalidChar in "\\/:*?<>| ":
-                    demoName = demoName.replace(invalidChar, "")
-                if not demoName:
-                    demoName = "unnamed_demo"
-                demoDestination = demoPath + os.sep + demoName
-                activeSettings += f" -record {demoDestination + str(self.autoRecordDemoAttempt if self.demoAutoRecordCheck.isChecked() else '')}"
-            elif self.demoPlayRadio.isChecked():
-                activeSettings += f" -playdemo {self.demoPlayPathLineEdit.text()}"
-
-        if self.warpGroup.isChecked():
-            # TODO add something for the map here
-            activeSettings += f" -skill {self.warpSkillCombo.currentIndex()+1}"
-
-        # parameters typed out instead of using .text() for simplicity,
-        # and in case I change the text of the checkboxes in the future.
-        if self.paramGroup.isChecked():
-            if self.paramFast.isChecked():       activeSettings += " -fast"
-            if self.paramRespawn.isChecked():    activeSettings += " -respawn"
-            if self.paramSoloNet.isChecked():    activeSettings += " -solo-net"
-            if self.paramNoMonsters.isChecked(): activeSettings += " -nomonsters"
-            if self.paramNoMusic.isChecked():    activeSettings += " -nomusic"
-            if self.paramNoSFX.isChecked():      activeSettings += " -nosfx"
-            if self.paramNoSound.isChecked():    activeSettings += " -nosound"
-
-        try:
-            process = run.run(port=self.portCombo.currentData(3),
-                              iwad=self.iwadList.currentItem().data(3),
-                              complevel=self.complevelCombo.currentData(3) if not self.demoPlayRadio.isChecked() else None,
-                              pwads=activePWADs,        # ^^^ if demo is going to play, ignore the complevel dropdown
-                              deh=activeDEH,
-                              settings=activeSettings,
-                              extra=self.parameterLineEdit.text(),
-                              noLaunch=noLaunch)
-            if self.demoAutoRecordCheck.isChecked() and not self.autoRecordTimer.isActive():
-                self.autoRecordProcess = process
-                self.autoRecordTimer.start(500)
-            if noLaunch: return process     # process is actually the commandline when noLaunch is on
-            elif self.bdlAutoClose.isChecked(): BDLMainWindow.close()   # only close if auto-record and noLaunch are off
-
-        # TODO: add custom doom warning icons, move warning explanation elsewhere?
-        # TODO: add logger?
-        except AttributeError:      # AttributeError means no IWAD -> NoneType.data(3) causes it
-            if self.portCombo.currentData(3) is None:       # Checks to see if there's no port -> double whammy
-                run.showPopup(title="Missing source port and IWAD!",
-                                    text="No source port or IWAD detected! Both a source port\n"
-                                    "and a valid IWAD are required to run Doom games.",
-                                    textInformative=("Source ports are ports of Doom's original source\n"
-                                                     "code, and are used to run game data.\n"
-                                                     "Examples: PrBoom+, GZDoom, Chocolate Doom\n\n"
-                                                     "IWADs are official game data files. They contain all of the\n"
-                                                     "game's assets, and are used as the base for custom wads.\n"
-                                                     "Examples: DOOM.WAD, DOOM2.WAD, TNT.WAD, etc."))
-            else:       # Port detected, just missing iwad.
-                run.showPopup(title="Missing IWAD!",
-                                    text="No IWAD detected! Both a source port and a\n"
-                                    "valid IWAD are required to run Doom games.",
-                                    textInformative=("Source ports are ports of Doom's original source\n"
-                                                     "code, and are used to run game data.\n"
-                                                     "Examples: PrBoom+, GZDoom, Chocolate Doom\n\n"
-                                                     "IWADs are official game data files. They contain all of the\n"
-                                                     "game's assets, and are used as the base for custom wads.\n"
-                                                     "Examples: DOOM.WAD, DOOM2.WAD, TNT.WAD, etc."))
-        except TypeError:       # TypeError means no port -> '"' + NoneType + '"' in run.run() causes it
-            run.showPopup(title="Missing source port!",
-                                text="No source port detected! Both a source port and\n"
-                                "a valid IWAD are required to run Doom games.",
-                                textInformative=("Source ports are ports of Doom's original source\n"
-                                                 "code, and are used to run game data.\n"
-                                                 "Examples: PrBoom+, GZDoom, Chocolate Doom\n\n"
-                                                 "IWADs are official game data files. They contain all of the\n"
-                                                 "game's assets, and are used as the base for custom wads.\n"
-                                                 "Examples: DOOM.WAD, DOOM2.WAD, TNT.WAD, etc."))
-
-    def prepareAddFile(self, widget, files=None):
-        self.lastDir = run.addFile(widget=widget,
-                                   files=files,
-                                   lastDir=self.lastDir)
-
-    def autoRecordTimeout(self):
-        if self.demoAutoRecordCheck.isChecked() and isinstance(self.autoRecordProcess, subprocess.Popen) and self.autoRecordProcess.poll() is not None:
-            self.autoRecordTimer.stop()
-            self.autoRecordDemoAttempt += 1
-            self.prepareLaunch()
-
-    def changeDoomCapitalization(self):
-        if self.bdlForceCaps.isChecked():
-            capsStyle = self.bdlForceCapsCombo.currentText()
-            for iwad in self.getListWidgetItems(self.iwadList):
-                try:
-                    oldName = iwad.text()
-                    nameIndex = oldName.lower().find("doom")
-                    if nameIndex != -1:
-                        iwad.setText(oldName[:nameIndex] + capsStyle + oldName[nameIndex+4:])
-                except: continue
-
-    def renamePort(self):
-        if not self.portRenameLineEdit.isVisible():     # rename started
-            self.portRenameLineEdit.show()      # show lineEdit to rename
-            self.portRenameLineEdit.setText(self.portCombo.currentText())   # start with original name
-            self.portRenameLineEdit.selectAll()     # start with text selected
-            self.portRenameLineEdit.setFocus(QtCore.Qt.NoFocusReason)   # grab focus to type immediately
-
-
-        else:   # rename finished
-            newName = self.portRenameLineEdit.text()
-            if newName:  # if the lineEdit is blank, don't change the name
-                self.portCombo.setItemText(self.portCombo.currentIndex(), newName)   # change name
-            self.portRenameLineEdit.hide()  # hide lineEdit
-
-    def movePort(self, direction):
-        try:
-            portText = self.portCombo.currentText()
-            portData = self.portCombo.currentData(3)
-            portIndex = self.portCombo.currentIndex()
-            newIndex = 0
-
-            if direction == "up":       newIndex = portIndex - 1
-            elif direction == "down":   newIndex = portIndex + 1
-            elif direction == "top":    newIndex = 0
-            elif direction == "bottom": newIndex = self.portCombo.count() - 1
-
-            self.portCombo.removeItem(portIndex)
-            self.portCombo.insertItem(newIndex, portText)
-            self.portCombo.setItemData(newIndex, portData, 3)
-            self.portCombo.setCurrentIndex(newIndex)
-        except: pass
-
-    def getListWidgetItems(self, listWidget):
-        for i in range(listWidget.count()):
-            yield listWidget.item(i)
-
-    def removeListItem(self, qlist):
-        selected = list(qlist.row(item) for item in qlist.selectedItems())  # generates list of currently selected item indexes
-        selected.sort(reverse=True)                  # sorts list to delete higher indexes first to avoid indexes being updated
-        for index in selected:         # uses takeItem() to remove items and deletes them manually since qt won't do it for you
-            garbage = qlist.takeItem(index)
-            del garbage
-
-    def resetIWADFlags(self):   # Workaround for Qt bug in which dragging resets list item flags.
-        try:
-            self.iwadList.currentItem().setFlags(QtCore.Qt.ItemIsSelectable|
-                                                 QtCore.Qt.ItemIsEditable|
-                                                 QtCore.Qt.ItemIsDragEnabled|
-                                                 QtCore.Qt.ItemIsEnabled)
-        except: pass        # Try-except block to prevent crash with no iwads
-
-
-
-    def openAboutDialog(self):
-        aboutDialog = QtWidgets.QDialog()
-        aboutDialog.setWindowModality(1)
-        ui = window_about.Ui_aboutDialog()
-        ui.setupUi(aboutDialog)
-        aboutDialog.exec()
-
-
-
-from bdlComboBox import bdlComboBox
-from bdlListWidget import bdlListWidget
-from bdlLineEdit import bdlLineEdit
+    def retranslateUi(self, BDLMainWindow):
+        pass
+from bdlWidgets import bdlComboBox, bdlDemoLineEdit, bdlListWidget
 import res_rc
+
 
 if __name__ == "__main__":
     import sys
@@ -1081,6 +743,4 @@ if __name__ == "__main__":
     ui = Ui_BDLMainWindow()
     ui.setupUi(BDLMainWindow)
     BDLMainWindow.show()
-    response = app.exec_()
-    ui.saveConfig()
-    sys.exit(response)
+    sys.exit(app.exec_())
