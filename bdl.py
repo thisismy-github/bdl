@@ -9,9 +9,18 @@ from names import portNames, iwadNames, iwadNamesSimple, mapNumberStyles
 # TODO: add fallback for empty wad/port names
 # TODO: add logger
 
+class MissingPortAndIWAD(Exception):
+    pass
+class MissingPort(Exception):
+    pass
+class MissingIWAD(Exception):
+    pass
+
+
+
 class BDLInstance:
-    bdlVersion = 5
-    bdlVersionStr = '0.0.5 alpha'
+    bdlVersion = 6
+    bdlVersionStr = '0.0.6 alpha'
 
     def setupBDL(self, ui, window):
         self.ui = ui
@@ -53,6 +62,7 @@ class BDLInstance:
         self.autoRecordTimer.timeout.connect(self.autoRecordTimeout)
         self.autoRecordProcess = None
         self.autoRecordDemoAttempt = 1
+        self.autoRecordDemoSession = 1
 
         self.ui.portRenameLineEdit.hide()
         self.ui.demoGroup.setMaximumHeight(80 if self.ui.demoGroup.isChecked() else 13)
@@ -66,20 +76,26 @@ class BDLInstance:
 
 
     def connectWidgetSignals(self):
-        # Connecting slots and signals
+        # Connecting slots, signals, and menus
+        self.ui.iwadMenuButton.setMenu(self.ui.iwadMenu)
+        self.ui.portMenuButton.setMenu(self.ui.portMenu)
+        self.ui.bdlMenuButton.setMenu(self.ui.bdlMenu)
+
         self.ui.launchButton.clicked.connect(self.prepareLaunch)
 
         self.ui.pwadAdd.clicked.connect(lambda: self.addFile(self.ui.pwadList))
         self.ui.pwadRem.clicked.connect(lambda: self.removeListItem(self.ui.pwadList))
 
-        self.ui.iwadMenuButton.setMenu(self.ui.iwadMenu)
         self.ui.iwadList.itemDoubleClicked.connect(self.resetIWADFlags)
         self.ui.iwadList.model().rowsInserted.connect(self.changeDoomCapitalization)
         self.ui.iwadList.currentItemChanged[QtWidgets.QListWidgetItem, QtWidgets.QListWidgetItem].connect(self.fillWarpMapCombo)
         self.ui.iwadAdd.clicked.connect(lambda: self.addFile(self.ui.iwadList))
         self.ui.iwadRem.clicked.connect(lambda: self.removeListItem(self.ui.iwadList))
         # TODO: crossplatform -> explorer /select is windows only
+
         self.ui.iwadBrowseLocalFiles.triggered.connect(lambda: subprocess.Popen(f'explorer /select,{os.path.abspath(self.ui.iwadList.currentItem().data(3))}'))
+        self.ui.iwadClearAll.triggered.connect(lambda: self.clearListWidgetItems(self.ui.iwadList))
+        self.ui.iwadAutoAddSteamIWADs.triggered.connect(lambda: config.findSteamIWADs(self))
         self.ui.iwadSteamUDoom.triggered.connect(lambda: webbrowser.open('https://store.steampowered.com/app/2280/Ultimate_Doom/'))
         self.ui.iwadSteamDoom2.triggered.connect(lambda: webbrowser.open('https://store.steampowered.com/app/2300/DOOM_II/'))
         self.ui.iwadSteamFinalDoom.triggered.connect(lambda: webbrowser.open('https://store.steampowered.com/app/2290/Final_DOOM/'))
@@ -89,10 +105,10 @@ class BDLInstance:
         self.ui.iwadDealsFinalDoom.triggered.connect(lambda: webbrowser.open('https://isthereanydeal.com/game/finaldoom/info/'))
         self.ui.iwadDealsClassicComplete.triggered.connect(lambda: webbrowser.open('https://isthereanydeal.com/game/doomclassiccomplete/info/'))
 
-        self.ui.portMenuButton.setMenu(self.ui.portMenu)
         self.ui.portAdd.triggered.connect(lambda: self.addFile(self.ui.portCombo))
         self.ui.portRem.triggered.connect(lambda: self.ui.portCombo.removeItem(self.ui.portCombo.currentIndex()))
-        # TODO: again, windows only ^^^
+        self.ui.portClearAll.triggered.connect(lambda: self.clearPorts())
+        # TODO: again, windows only
         self.ui.portBrowseLocalFiles.triggered.connect(lambda: subprocess.Popen(f'explorer /select,{os.path.abspath(self.ui.portCombo.currentData(3))}'))
         self.ui.portRename.triggered.connect(self.renamePort)
         self.ui.portRenameLineEdit.returnPressed.connect(self.renamePort)
@@ -107,6 +123,10 @@ class BDLInstance:
 
         self.ui.demoRecordBrowseButton.clicked.connect(lambda: self.addFile(self.ui.demoRecordNameLineEdit))
         self.ui.demoPlayBrowseButton.clicked.connect(lambda: self.addFile(self.ui.demoPlayPathLineEdit))
+        self.ui.demoRecordNameLineEdit.textChanged.connect(lambda: self.ui.demoRecordRadio.setChecked(True))
+        self.ui.demoRecordNameLineEdit.selectionChanged.connect(lambda: self.ui.demoRecordRadio.setChecked(True))
+        self.ui.demoPlayPathLineEdit.textChanged.connect(lambda: self.ui.demoPlayRadio.setChecked(True))
+        self.ui.demoPlayPathLineEdit.selectionChanged.connect(lambda: self.ui.demoPlayRadio.setChecked(True))
 
         self.ui.bdlCapitalization.toggled.connect(self.changeDoomCapitalization)
         self.ui.bdlCapitalizationCombo.currentIndexChanged.connect(self.changeDoomCapitalization)
@@ -114,7 +134,11 @@ class BDLInstance:
         self.ui.bdlUpdateCheckNowButton.clicked.connect(lambda: update.checkUpdate(self))
         self.ui.bdlUpdateButton.clicked.connect(lambda: update.update(self))
 
-        self.ui.aboutButton.clicked.connect(self.openAboutDialog)
+        self.ui.bdlMenuSaveini.triggered.connect(self.saveCustomConfig)
+        self.ui.bdlMenuLoadini.triggered.connect(self.loadCustomConfig)
+        self.ui.bdlMenuClearEverything.triggered.connect(self.clearEverything)
+        self.ui.bdlMenuAbout.triggered.connect(self.openAboutDialog)
+
         self.ui.commandLinePreviewButton.clicked.connect(lambda: self.showPopup(title="Command line preview",
                                                                                 text=self.prepareLaunch(noLaunch=True),
                                                                                 icon=QtWidgets.QMessageBox.Information))
@@ -122,23 +146,54 @@ class BDLInstance:
 
 
     def prepareLaunch(self, noLaunch=False):
-        port = self.ui.portCombo.currentData(3)         # throw error if no port is present
-        iwad = self.ui.iwadList.currentItem().data(3)   # throw error if no iwad is present
-        complevel = self.ui.complevelCombo.currentData(3) if not self.ui.demoPlayRadio.isChecked() else ""
-        activePWADs = ""
-        activeDEH = ""
-        activeSettings = ""
-        extra=self.ui.parameterLineEdit.text()
+      ### Error Handling ###
         errorText = ("Source ports are ports of Doom's original source\n"
                      "code, and are used to run game data.\n"
                      "Examples: PrBoom+, GZDoom, Chocolate Doom\n\n"
                      "IWADs are official game data files. They contain all of the\n"
                      "game's assets, and are used as the base for custom wads.\n"
                      "Examples: DOOM.WAD, DOOM2.WAD, TNT.WAD, etc.")
+        try:
+            if self.ui.portCombo.currentIndex() == -1 and self.ui.iwadList.currentItem() == None:
+                raise MissingPortAndIWAD
+            elif self.ui.portCombo.currentIndex() == -1:
+                raise MissingPort
+            elif self.ui.iwadList.currentItem() == None:
+                raise MissingIWAD
+
+        # TODO: add custom doom warning icons?
+        except MissingPortAndIWAD:
+            self.showPopup(title="Missing source port and IWAD!",
+                           text="No source port or IWAD detected! Both a source port\n"
+                           "and a valid IWAD are required to run Doom games.",
+                           textInformative=errorText)
+            return
+        except MissingPort:       # TypeError means no port -> '"' + NoneType + '"' above causes it
+            self.showPopup(title="Missing source port!",
+                                text="No source port detected! Both a source port and\n"
+                                "a valid IWAD are required to run Doom games.",
+                                textInformative=errorText)
+            return
+        except MissingIWAD:      # AttributeError means no IWAD -> NoneType.data(3) causes it
+            self.showPopup(title="Missing IWAD!",
+                           text="No IWAD detected! Both a source port and a\n"
+                           "valid IWAD are required to run Doom games.",
+                           textInformative=errorText)
+            return
+
+      ### Launching ###
+        port = self.ui.portCombo.currentData(3)
+        iwad = self.ui.iwadList.currentItem().data(3)
+        complevel = self.ui.complevelCombo.currentData(3) if not self.ui.demoPlayRadio.isChecked() else ""
+        activePWADs = ""
+        activeDEH = ""
+        activeSettings = ""
+        extra=self.ui.parameterLineEdit.text()
 
         for i in range(self.ui.pwadList.count()):
             pwad = self.ui.pwadList.item(i)
-            if pwad.checkState() == 2:      # 2 -> item is checked, isChecked() not available
+            # make sure checkboxes are enabled, 2 = checked (no isChecked() for some reason)
+            if not self.ui.bdlPWADsCheckable.isChecked() or pwad.checkState() == 2:
                 filePath = pwad.data(3)
                 if filePath.endswith('.deh') or filePath.endswith('.bex'):
                     activeDEH += os.path.abspath(filePath) + " "
@@ -146,18 +201,36 @@ class BDLInstance:
                     activePWADs += os.path.abspath(filePath) + " "
 
         if self.ui.demoGroup.isChecked():
+            # TODO: clean this up
             if self.ui.demoRecordRadio.isChecked():
                 demoDestination = self.ui.demoRecordNameLineEdit.text().replace('.lmp', '').split(os.sep)
                 demoPath = (os.sep).join(demoDestination[:-1])
+
                 demoName = demoDestination[-1]
                 for invalidChar in "\\/:*?<>| ":
                     demoName = demoName.replace(invalidChar, "")
-                if not demoName:
-                    demoName = "unnamed_demo"
-                demoDestination = demoPath + os.sep + demoName
-                activeSettings += f" -record {demoDestination + str(self.autoRecordDemoAttempt if self.ui.demoAutoRecordCheck.isChecked() else '')}"
+                if not demoName: demoName = "unnamed_demo"
+
+                if demoPath:
+                    self.lastDir = demoPath
+                    demoDestination = demoPath + os.sep + demoName
+                else:
+                    self.lastDir = '.'
+                    demoDestination = demoName
+
+                if self.ui.demoAutoRecordCheck.isChecked():
+                    demoTempDest = demoDestination
+                    demoDestination += '_' + str(self.autoRecordDemoSession) + '_' + str(self.autoRecordDemoAttempt)
+
+                    while os.path.exists(demoDestination + '.lmp'):
+                        self.autoRecordDemoSession += 1
+                        demoDestination = demoTempDest + '_' + str(self.autoRecordDemoSession) + '_' + str(self.autoRecordDemoAttempt)
+
+                activeSettings += f" -record {demoDestination}"
+                if self.ui.demoLongTicsCheck.isChecked():
+                    activeSettings += " -longtics"
                 if not self.ui.warpGroup.isChecked():
-                    activeSettings += f" -skill 4"
+                    activeSettings += " -skill 4"
             elif self.ui.demoPlayRadio.isChecked():
                 activeSettings += f" -playdemo {self.ui.demoPlayPathLineEdit.text()}"
 
@@ -179,45 +252,35 @@ class BDLInstance:
             if self.ui.paramFast.isChecked():       activeSettings += " -fast"
             if self.ui.paramRespawn.isChecked():    activeSettings += " -respawn"
             if self.ui.paramSoloNet.isChecked():    activeSettings += " -solo-net"
+            if self.ui.paramLevelStat.isChecked():  activeSettings += " -levelstat"
+            if self.ui.paramNoSound.isChecked():    activeSettings += " -nosound"
             if self.ui.paramNoMonsters.isChecked(): activeSettings += " -nomonsters"
             if self.ui.paramNoMusic.isChecked():    activeSettings += " -nomusic"
             if self.ui.paramNoSFX.isChecked():      activeSettings += " -nosfx"
-            if self.ui.paramNoSound.isChecked():    activeSettings += " -nosound"
+            if self.ui.paramTurboCheck.isChecked(): activeSettings += f" -turbo {self.ui.paramTurboSpin.value()}"
 
         try:
-            command = '"' + os.path.abspath(port) + '"'  # intentionally different -> missing port causes TypeError here
+            command = '"' + os.path.abspath(port) + '"'
             command += f" -iwad {os.path.abspath(iwad)}"
-            command += f" -file {activePWADs}"
-            command += f" -deh {activeDEH}"
+            if activePWADs: command += f" -file {activePWADs}"
+            if activeDEH: command += f" -deh {activeDEH}"
             command += f" {complevel}"
             command += f" {activeSettings}"
             command += f" {extra}"
+
+            print(command)
+            if noLaunch: return command
+            command = subprocess.Popen(command)  # Popen prevents bdl from hanging while game is open
 
             if self.ui.demoAutoRecordCheck.isChecked() and not self.autoRecordTimer.isActive():
                 self.autoRecordProcess = command
                 self.autoRecordTimer.start(500)
 
-            #if not noLaunch: return subprocess.Popen(command)  # Popen prevents bdl from hanging while game is open
-            if noLaunch: return command
-            elif self.ui.bdlAutoClose.isChecked(): BDLMainWindow.close()   # only close if auto-record and noLaunch are off
+            if self.ui.bdlAutoClose.isChecked() and not self.isRecordingDemo(): self.window.close()
+            return command
 
-        # TODO: add custom doom warning icons?
-        except AttributeError:      # AttributeError means no IWAD -> NoneType.data(3) causes it
-            if self.ui.portCombo.currentData(3) is None:    # If there's no port -> double whammy
-                self.showPopup(title="Missing source port and IWAD!",
-                                    text="No source port or IWAD detected! Both a source port\n"
-                                    "and a valid IWAD are required to run Doom games.",
-                                    textInformative=errorText)
-            else:       # Port detected, just missing iwad.
-                self.showPopup(title="Missing IWAD!",
-                                    text="No IWAD detected! Both a source port and a\n"
-                                    "valid IWAD are required to run Doom games.",
-                                    textInformative=errorText)
-        except TypeError:       # TypeError means no port -> '"' + NoneType + '"' above causes it
-            self.showPopup(title="Missing source port!",
-                                text="No source port detected! Both a source port and\n"
-                                "a valid IWAD are required to run Doom games.",
-                                textInformative=errorText)
+        except Exception as error:
+            print('Unexpected bdl.prepareLaunch() error:',error)
 
 
 
@@ -229,15 +292,15 @@ class BDLInstance:
         if widget.objectName() == "pwadList":
             if files is None:
                 files = QtWidgets.QFileDialog.getOpenFileNames(caption="Select one or more files to add",
-                                                            directory=self.lastDir,
-                                                            filter="DOOM files (*.wad *.zip *.deh *.bex *.pk3 *.pk7 *.pkz *.ipk7 *p7z);;"
-                                                            "Vanilla Doom files (*.wad *.zip *.deh);;"
-                                                            "Boom files (*.wad *.zip *.deh *.bex);;"
-                                                            "ZDoom files (*.pk3 *.pk7 *.pkz *.ipk7 *p7z);;"
-                                                            "Patch files (*.deh *.bex);;"
-                                                            "Zip files (*.zip);;"
-                                                            "WAD files (*.wad);;"
-                                                            "All files (*)")[0]
+                                                               directory=self.lastDir,
+                                                               filter="DOOM files (*.wad *.zip *.deh *.bex *.pk3 *.pk7 *.pkz *.ipk7 *p7z);;"
+                                                               "Vanilla Doom files (*.wad *.zip *.deh);;"
+                                                               "Boom files (*.wad *.zip *.deh *.bex);;"
+                                                               "ZDoom files (*.pk3 *.pk7 *.pkz *.ipk7 *p7z);;"
+                                                               "Patch files (*.deh *.bex);;"
+                                                               "Zip files (*.zip);;"
+                                                               "WAD files (*.wad);;"
+                                                               "All files (*)")[0]
                 try: newLastDir = (os.sep).join(files[-1].split("/")[:-1])
                 except: pass
             for path in files:
@@ -303,6 +366,7 @@ class BDLInstance:
                     newLastDir = demoDestination
                     widget.setText(os.path.abspath(demoDestination) + os.sep + previousDemoName)
                     widget.setText(os.path.abspath(demoDestination) + os.sep + previousDemoName)
+                    self.ui.demoRecordRadio.setChecked(True)
                 except:
                     widget.setText(os.path.abspath(demoDestination) + os.sep)
 
@@ -312,12 +376,15 @@ class BDLInstance:
                                                             directory=self.lastDir,
                                                             filter="Doom demo files (*.lmp);;"
                                                             "All files (*)")[0]
-            try: newLastDir = (os.sep).join(files.split("/")[:-1])
-            except: pass
             if files:   # check that a file was actually picked, or else setText will empty the lineEdit
-                try: widget.setText(files)
+                try: newLastDir = (os.sep).join(files.split("/")[:-1])
+                except Exception as error: print(error)
+                try:
+                    widget.setText(files)
+                    self.ui.demoPlayRadio.setChecked(True)
                 except: pass
-        if not dragAndDropped: self.lastDir = newLastDir
+        if not dragAndDropped:
+            self.lastDir = newLastDir
 
 
 
@@ -411,6 +478,7 @@ class BDLInstance:
         # ONLY returns map list for filling the warp combo, doesn't return names yet
         if wadName in iwadNamesSimple:
             return iwadNamesSimple[wadName][1]
+        return mapNumberStyles[4]   # invalid iwad, just assume Doom 2 style (MAP##)
 
 
     def fillWarpMapCombo(self, newWadItem, prevWadItem=None):
@@ -494,10 +562,6 @@ class BDLInstance:
 
 ### ListWidgetItem functions ###
     def resetPWADsCheckable(self):
-        try:
-            for pwad in self.getListWidgetItems(self.ui.pwadList):
-                pwad.setCheckState(2)
-        except: pass
         if self.ui.bdlPWADsCheckable.isChecked():
             self.ui.pwadList.setStyleSheet("QListWidget { outline: 0; }\n"
                                         "QListWidget::indicator {\n"
@@ -536,12 +600,51 @@ class BDLInstance:
 
 
 
+### Clear functions ###
+    def clearEverything(self):
+        response = self.showPopup(title='Are you sure?',
+                                  text='Are you sure? This will clear all\n'
+                                  'of your PWADs, IWADs, and source ports.',
+                                  buttons=QMessageBox.Ok|QMessageBox.Cancel,
+                                  icon=QMessageBox.Information)
+        if response == 1024:
+            self.clearListWidgetItems(self.ui.pwadList)
+            self.clearListWidgetItems(self.ui.iwadList)
+            self.clearPorts(showWarning=False)
+
+    def clearListWidgetItems(self, listWidget):
+        # getListWidgetItems yields items, so we'll put them into a separate list.
+        toRemove = [item for item in self.getListWidgetItems(listWidget)]
+        for item in toRemove:
+            item.setSelected(True)
+            self.removeListItem(listWidget)
+
+    def clearPorts(self, showWarning=True):
+        if showWarning:
+            response = self.showPopup(title='Are you sure?',
+                                      text='Are you sure? This will clear all of your source ports.',
+                                      buttons=QMessageBox.Ok|QMessageBox.Cancel,
+                                      icon=QMessageBox.Information)
+        if not showWarning or response == 1024:
+            while self.ui.portCombo.currentIndex() != -1:
+                self.ui.portCombo.removeItem(self.ui.portCombo.currentIndex())
+
+
+
 ### Misc functions ###
     def autoRecordTimeout(self):
-        if self.ui.demoAutoRecordCheck.isChecked() and isinstance(self.autoRecordProcess, subprocess.Popen) and self.autoRecordProcess.poll() is not None:
+        if isinstance(self.autoRecordProcess, subprocess.Popen) and self.autoRecordProcess.poll() is not None:
             self.autoRecordTimer.stop()
-            self.autoRecordDemoAttempt += 1
-            self.prepareLaunch()
+            if self.isRecordingDemo():
+                self.autoRecordDemoAttempt += 1
+                self.prepareLaunch()
+            else:   # stop autorecorder
+                self.autoRecordDemoAttempt = 1
+                self.autoRecordDemoSession = 1
+
+
+    def isRecordingDemo(self):
+        return (self.ui.demoAutoRecordCheck.isChecked() and self.ui.demoAutoRecordCheck.isEnabled() and self.ui.demoGroup.isChecked() and self.ui.demoRecordRadio.isChecked())
 
 
     def changeDoomCapitalization(self):
@@ -554,6 +657,27 @@ class BDLInstance:
                     if nameIndex != -1:
                         iwad.setText(oldName[:nameIndex] + capsStyle + oldName[nameIndex+4:])
                 except: continue
+
+
+    def saveCustomConfig(self):
+        file = QtWidgets.QFileDialog.getSaveFileName(caption="Save configuration",
+                                                     directory=self.lastDir,
+                                                     filter="ini (*.ini);;"
+                                                     "cfg (*.cfg);;"
+                                                     "All files (*)")[0]
+        self.lastDir = (os.sep).join(file.split("/")[:-1])
+        config.saveConfig(self, file)
+
+
+    def loadCustomConfig(self):
+        file = QtWidgets.QFileDialog.getOpenFileName(caption="Select configuration to load",
+                                                     directory=self.lastDir,
+                                                     filter="BDL config files (*.ini);;"
+                                                     "Other config files (*.bdl *.cfg);;"
+                                                     "All files (*)")[0]
+        try: self.lastDir = (os.sep).join(file.split("/")[:-1])
+        except: pass
+        config.loadConfig(self, file)
 
 
     def openAboutDialog(self):

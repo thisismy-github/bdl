@@ -268,20 +268,14 @@ class Ui_BDLMainWindow(object):
         self.gridLayout_8.setContentsMargins(-1, -1, -1, 3)
         self.gridLayout_8.setVerticalSpacing(4)
         self.gridLayout_8.setObjectName("gridLayout_8")
-        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_8.addItem(spacerItem7, 3, 0, 1, 1)
         self.demoGroup = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.demoGroup.sizePolicy().hasHeightForWidth())
         self.demoGroup.setSizePolicy(sizePolicy)
-        self.demoGroup.setMinimumSize(QtCore.QSize(130, 0))
         self.demoGroup.setMaximumSize(QtCore.QSize(16777215, 13))
-        self.demoGroup.setToolTip("Record a new or play an existing demo.\n"
-"Recording a new demo will automatically\n"
-"warp you to the opening map on skill 3,\n"
-"Hurt Me Plenty, unless otherwise specified.")
+        self.demoGroup.setToolTip("<html><head/><body><p>Record or play a demo.</p></body></html>")
         self.demoGroup.setTitle("Record/Play Demo")
         self.demoGroup.setFlat(False)
         self.demoGroup.setCheckable(True)
@@ -292,31 +286,61 @@ class Ui_BDLMainWindow(object):
         self.gridLayout_9.setHorizontalSpacing(0)
         self.gridLayout_9.setVerticalSpacing(1)
         self.gridLayout_9.setObjectName("gridLayout_9")
+        self.demoPlayRadio = QtWidgets.QRadioButton(self.demoGroup)
+        self.demoPlayRadio.setToolTip("Play an existing demo.\n"
+"\n"
+"Many parameters either interfere with or\n"
+"do nothing when playing demos, so most\n"
+"options on this page are disabled or\n"
+"ignored while this option is selected.")
+        self.demoPlayRadio.setText("Play")
+        self.demoPlayRadio.setObjectName("demoPlayRadio")
+        self.gridLayout_9.addWidget(self.demoPlayRadio, 1, 0, 1, 1)
         self.demoPlayPathLineEdit = bdlDemoLineEdit(self.demoGroup)
         self.demoPlayPathLineEdit.setMinimumSize(QtCore.QSize(50, 0))
+        self.demoPlayPathLineEdit.setToolTip("Play an existing demo.\n"
+"\n"
+"Many parameters either interfere with or\n"
+"do nothing when playing demos, so most\n"
+"options on this page are disabled or\n"
+"ignored while this option is selected.")
         self.demoPlayPathLineEdit.setPlaceholderText("Path to demo")
         self.demoPlayPathLineEdit.setObjectName("demoPlayPathLineEdit")
         self.gridLayout_9.addWidget(self.demoPlayPathLineEdit, 1, 3, 1, 1)
+        self.demoRecordNameLineEdit = QtWidgets.QLineEdit(self.demoGroup)
+        self.demoRecordNameLineEdit.setMinimumSize(QtCore.QSize(50, 0))
+        self.demoRecordNameLineEdit.setToolTip("Record a new demo. Use the browse button\n"
+"to select a directory to save your demo to.\n"
+"\n"
+"Not specifying a name for your demo will\n"
+"default it to \"unnamed_demo.lmp\".\n"
+"\n"
+"Recording demos requires warping to a level.\n"
+"If no warp is specified, BDL will default to\n"
+"the first level on skill 4, Ultra-Violence.")
+        self.demoRecordNameLineEdit.setPlaceholderText("Name of demo")
+        self.demoRecordNameLineEdit.setObjectName("demoRecordNameLineEdit")
+        self.gridLayout_9.addWidget(self.demoRecordNameLineEdit, 0, 3, 1, 1)
         self.demoPlayBrowseButton = QtWidgets.QPushButton(self.demoGroup)
         self.demoPlayBrowseButton.setMaximumSize(QtCore.QSize(20, 18))
         self.demoPlayBrowseButton.setToolTip("Browse for your demo file of choice.")
         self.demoPlayBrowseButton.setText("...")
         self.demoPlayBrowseButton.setObjectName("demoPlayBrowseButton")
         self.gridLayout_9.addWidget(self.demoPlayBrowseButton, 1, 4, 1, 1)
-        self.demoRecordNameLineEdit = QtWidgets.QLineEdit(self.demoGroup)
-        self.demoRecordNameLineEdit.setMinimumSize(QtCore.QSize(50, 0))
-        self.demoRecordNameLineEdit.setPlaceholderText("Name of demo")
-        self.demoRecordNameLineEdit.setObjectName("demoRecordNameLineEdit")
-        self.gridLayout_9.addWidget(self.demoRecordNameLineEdit, 0, 3, 1, 1)
-        self.demoPlayRadio = QtWidgets.QRadioButton(self.demoGroup)
-        self.demoPlayRadio.setToolTip("Play an existing demo. Many parameters\n"
-"either do nothing or can interfere with\n"
-"the playing of a demo, so as a result,\n"
-"many of this menu\'s options are disabled\n"
-"or ignored while this option is selected.")
-        self.demoPlayRadio.setText("Play")
-        self.demoPlayRadio.setObjectName("demoPlayRadio")
-        self.gridLayout_9.addWidget(self.demoPlayRadio, 1, 0, 1, 1)
+        self.demoRecordRadio = QtWidgets.QRadioButton(self.demoGroup)
+        self.demoRecordRadio.setToolTip("Record a new demo. Use the browse button\n"
+"to select a directory to save your demo to.\n"
+"\n"
+"Not specifying a name for your demo will\n"
+"default it to \"unnamed_demo.lmp\".\n"
+"\n"
+"Recording demos requires warping to a level.\n"
+"If no warp is specified, BDL will default to\n"
+"the first level on skill 4, Ultra-Violence.")
+        self.demoRecordRadio.setText("Record")
+        self.demoRecordRadio.setChecked(True)
+        self.demoRecordRadio.setObjectName("demoRecordRadio")
+        self.gridLayout_9.addWidget(self.demoRecordRadio, 0, 0, 1, 1)
         self.demoRecordBrowseButton = QtWidgets.QPushButton(self.demoGroup)
         self.demoRecordBrowseButton.setMaximumSize(QtCore.QSize(20, 18))
         self.demoRecordBrowseButton.setToolTip("Browse for a directory to save your demo to.")
@@ -326,22 +350,25 @@ class Ui_BDLMainWindow(object):
         self.demoRecordBrowseButton.setText("...")
         self.demoRecordBrowseButton.setObjectName("demoRecordBrowseButton")
         self.gridLayout_9.addWidget(self.demoRecordBrowseButton, 0, 4, 1, 1)
-        self.demoRecordRadio = QtWidgets.QRadioButton(self.demoGroup)
-        self.demoRecordRadio.setToolTip("Record a new demo. Use the browse button\n"
-"to select a directory to save your demo to.\n"
-"Not including a name for your demo will\n"
-"default it to \"unnamed_demo.lmp\".")
-        self.demoRecordRadio.setText("Record")
-        self.demoRecordRadio.setChecked(True)
-        self.demoRecordRadio.setObjectName("demoRecordRadio")
-        self.gridLayout_9.addWidget(self.demoRecordRadio, 0, 0, 1, 1)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setSpacing(15)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.demoAutoRecordCheck = QtWidgets.QCheckBox(self.demoGroup)
         self.demoAutoRecordCheck.setMaximumSize(QtCore.QSize(16777215, 21))
         self.demoAutoRecordCheck.setToolTip("<html><head/><body><p>Automatically start recording a new demo after the previous recording finishes. Mainly intended for speedrunners, who must restart frequently.</p><p>Appends an attempt number to the end of each file. Demos must be deleted manually.</p><p><span style=\" font-weight:600;\">This setting must be disabled while in-game.</span></p></body></html>")
-        self.demoAutoRecordCheck.setText("Auto-record new demos")
+        self.demoAutoRecordCheck.setText("Auto-record")
         self.demoAutoRecordCheck.setObjectName("demoAutoRecordCheck")
-        self.gridLayout_9.addWidget(self.demoAutoRecordCheck, 2, 0, 1, 5)
+        self.horizontalLayout_2.addWidget(self.demoAutoRecordCheck)
+        self.demoLongTicsCheck = QtWidgets.QCheckBox(self.demoGroup)
+        self.demoLongTicsCheck.setMaximumSize(QtCore.QSize(16777215, 21))
+        self.demoLongTicsCheck.setToolTip("<html><head/><body><p>Forces demos to use standard high-precision turning.</p><p>Normally, demos are recorded using &quot;shorttics&quot;, a method of reducing the size of demos by limiting the angles players can face to an 8-bit number, 0-255. While this is actually useful for several speedrunning tricks, this can be jarring and uncomfortable for normal gameplay.</p><p>Turning on longtics is useful when casually recording demos, such as for playtesting purposes. As such, turning on longtics will disable BDL\'s auto-record feature.</p><p><span style=\" font-weight:600;\">Does not work with complevels 9 and 11 in Pr/GLBoom+.</span></p><p><span style=\" font-weight:600;\">Do not use -longtics when speedrunning.</span></p></body></html>")
+        self.demoLongTicsCheck.setText("-longtics")
+        self.demoLongTicsCheck.setObjectName("demoLongTicsCheck")
+        self.horizontalLayout_2.addWidget(self.demoLongTicsCheck)
+        self.gridLayout_9.addLayout(self.horizontalLayout_2, 4, 0, 1, 5)
         self.gridLayout_8.addWidget(self.demoGroup, 0, 0, 1, 1)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_8.addItem(spacerItem7, 3, 0, 1, 1)
         self.paramGroup = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_3)
         self.paramGroup.setMaximumSize(QtCore.QSize(16777215, 13))
         self.paramGroup.setToolTip("Change additional optional parameters\n"
@@ -353,20 +380,9 @@ class Ui_BDLMainWindow(object):
         self.paramGroup.setChecked(False)
         self.paramGroup.setObjectName("paramGroup")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.paramGroup)
-        self.gridLayout_5.setContentsMargins(-1, 3, -1, 3)
+        self.gridLayout_5.setContentsMargins(-1, 3, 0, 3)
         self.gridLayout_5.setVerticalSpacing(2)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        self.paramFast = QtWidgets.QCheckBox(self.paramGroup)
-        self.paramFast.setToolTip("Fast monsters, with dramatically\n"
-"increased aggression and projectile\n"
-"speeds. This setting is on by default\n"
-"on NIGHTMARE! difficulty.\n"
-"\n"
-"Can be used outside of NIGHTMARE! to\n"
-"spice up the other difficulty settings.")
-        self.paramFast.setText("-fast")
-        self.paramFast.setObjectName("paramFast")
-        self.gridLayout_5.addWidget(self.paramFast, 0, 0, 1, 1)
         self.paramRespawn = QtWidgets.QCheckBox(self.paramGroup)
         self.paramRespawn.setToolTip("Demons will respawn after a short delay\n"
 "once killed. This setting is on by default\n"
@@ -382,6 +398,59 @@ class Ui_BDLMainWindow(object):
         self.paramSoloNet.setText("-solo-net")
         self.paramSoloNet.setObjectName("paramSoloNet")
         self.gridLayout_5.addWidget(self.paramSoloNet, 1, 0, 1, 1)
+        self.paramNoSound = QtWidgets.QCheckBox(self.paramGroup)
+        self.paramNoSound.setToolTip("Disables both music\n"
+"and sound effects.")
+        self.paramNoSound.setText("-nosound")
+        self.paramNoSound.setObjectName("paramNoSound")
+        self.gridLayout_5.addWidget(self.paramNoSound, 2, 0, 1, 1)
+        self.paramLevelStat = QtWidgets.QCheckBox(self.paramGroup)
+        self.paramLevelStat.setToolTip("Generates a levelstat.txt file with in-depth\n"
+"map-by-map stats and times.")
+        self.paramLevelStat.setText("-levelstat")
+        self.paramLevelStat.setObjectName("paramLevelStat")
+        self.gridLayout_5.addWidget(self.paramLevelStat, 1, 1, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setSpacing(3)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.paramTurboCheck = QtWidgets.QCheckBox(self.paramGroup)
+        self.paramTurboCheck.setToolTip("Adjusts player speed as a percentage from\n"
+"10-400, with 100 being normal movement.\n"
+"(ex. 150 would be 150% normal speed)\n"
+"\n"
+"Forcing this value above 255 will have...\n"
+"interesting effects when holding run.")
+        self.paramTurboCheck.setText("-turbo")
+        self.paramTurboCheck.setObjectName("paramTurboCheck")
+        self.horizontalLayout.addWidget(self.paramTurboCheck)
+        self.paramTurboSpin = QtWidgets.QSpinBox(self.paramGroup)
+        self.paramTurboSpin.setEnabled(False)
+        self.paramTurboSpin.setAccelerated(True)
+        self.paramTurboSpin.setPrefix("")
+        self.paramTurboSpin.setMinimum(10)
+        self.paramTurboSpin.setMaximum(255)
+        self.paramTurboSpin.setProperty("value", 100)
+        self.paramTurboSpin.setObjectName("paramTurboSpin")
+        self.horizontalLayout.addWidget(self.paramTurboSpin)
+        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem8)
+        self.gridLayout_5.addLayout(self.horizontalLayout, 6, 0, 1, 2)
+        self.paramFast = QtWidgets.QCheckBox(self.paramGroup)
+        self.paramFast.setToolTip("Fast monsters, with dramatically\n"
+"increased aggression and projectile\n"
+"speeds. This setting is on by default\n"
+"on NIGHTMARE! difficulty.\n"
+"\n"
+"Can be used outside of NIGHTMARE! to\n"
+"spice up the other difficulty settings.")
+        self.paramFast.setText("-fast")
+        self.paramFast.setObjectName("paramFast")
+        self.gridLayout_5.addWidget(self.paramFast, 0, 0, 1, 1)
+        self.paramNoMusic = QtWidgets.QCheckBox(self.paramGroup)
+        self.paramNoMusic.setToolTip("Disables music.")
+        self.paramNoMusic.setText("-nomusic")
+        self.paramNoMusic.setObjectName("paramNoMusic")
+        self.gridLayout_5.addWidget(self.paramNoMusic, 4, 0, 1, 1)
         self.paramNoMonsters = QtWidgets.QCheckBox(self.paramGroup)
         self.paramNoMonsters.setToolTip("Removes demons from the game.\n"
 "\n"
@@ -389,23 +458,12 @@ class Ui_BDLMainWindow(object):
 "killing specific monsters to exit.")
         self.paramNoMonsters.setText("-nomonsters")
         self.paramNoMonsters.setObjectName("paramNoMonsters")
-        self.gridLayout_5.addWidget(self.paramNoMonsters, 1, 1, 1, 1)
-        self.paramNoMusic = QtWidgets.QCheckBox(self.paramGroup)
-        self.paramNoMusic.setToolTip("Disables music.")
-        self.paramNoMusic.setText("-nomusic")
-        self.paramNoMusic.setObjectName("paramNoMusic")
-        self.gridLayout_5.addWidget(self.paramNoMusic, 2, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.paramNoMonsters, 2, 1, 1, 1)
         self.paramNoSFX = QtWidgets.QCheckBox(self.paramGroup)
         self.paramNoSFX.setToolTip("Disables sound effects.")
         self.paramNoSFX.setText("-nosfx")
         self.paramNoSFX.setObjectName("paramNoSFX")
-        self.gridLayout_5.addWidget(self.paramNoSFX, 2, 1, 1, 1)
-        self.paramNoSound = QtWidgets.QCheckBox(self.paramGroup)
-        self.paramNoSound.setToolTip("Disables both music\n"
-"and sound effects.")
-        self.paramNoSound.setText("-nosound")
-        self.paramNoSound.setObjectName("paramNoSound")
-        self.gridLayout_5.addWidget(self.paramNoSound, 3, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.paramNoSFX, 4, 1, 1, 1)
         self.gridLayout_8.addWidget(self.paramGroup, 2, 0, 1, 1)
         self.warpGroup = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -485,13 +543,19 @@ class Ui_BDLMainWindow(object):
         self.gridLayout_6.setHorizontalSpacing(0)
         self.gridLayout_6.setVerticalSpacing(1)
         self.gridLayout_6.setObjectName("gridLayout_6")
-        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_6.addItem(spacerItem8, 2, 1, 1, 1)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem9, 2, 2, 1, 1)
         self.commandLinePreviewButton = QtWidgets.QPushButton(self.tabBDL)
         self.commandLinePreviewButton.setMaximumSize(QtCore.QSize(126, 21))
         self.commandLinePreviewButton.setText("Preview Command Line")
         self.commandLinePreviewButton.setObjectName("commandLinePreviewButton")
-        self.gridLayout_6.addWidget(self.commandLinePreviewButton, 2, 2, 1, 1)
+        self.gridLayout_6.addWidget(self.commandLinePreviewButton, 2, 3, 1, 1)
+        self.bdlMenuButton = QtWidgets.QToolButton(self.tabBDL)
+        self.bdlMenuButton.setText("BDL")
+        self.bdlMenuButton.setIconSize(QtCore.QSize(9, 9))
+        self.bdlMenuButton.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.bdlMenuButton.setObjectName("bdlMenuButton")
+        self.gridLayout_6.addWidget(self.bdlMenuButton, 2, 1, 1, 1)
         self.scrollArea_3 = QtWidgets.QScrollArea(self.tabBDL)
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_3")
@@ -551,8 +615,8 @@ class Ui_BDLMainWindow(object):
         self.bdlCapitalizationCombo.addItem("")
         self.bdlCapitalizationCombo.setItemText(2, "DooM")
         self.gridLayout_12.addWidget(self.bdlCapitalizationCombo, 3, 1, 1, 1)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_12.addItem(spacerItem9, 11, 0, 1, 1)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_12.addItem(spacerItem10, 11, 0, 1, 1)
         self.bdlAutoClose = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
         self.bdlAutoClose.setToolTip("Close BDL after launching a game. BDL\n"
 "will only close once the game is closed.")
@@ -615,12 +679,7 @@ class Ui_BDLMainWindow(object):
         self.bdlDownloadLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.bdlDownloadProgress)
         self.gridLayout_12.addLayout(self.bdlDownloadLayout, 10, 0, 1, 2)
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents)
-        self.gridLayout_6.addWidget(self.scrollArea_3, 0, 0, 1, 3)
-        self.aboutButton = QtWidgets.QPushButton(self.tabBDL)
-        self.aboutButton.setMaximumSize(QtCore.QSize(46, 21))
-        self.aboutButton.setText("About")
-        self.aboutButton.setObjectName("aboutButton")
-        self.gridLayout_6.addWidget(self.aboutButton, 2, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.scrollArea_3, 0, 0, 1, 4)
         self.tabWidget.addTab(self.tabBDL, "bdl")
         self.gridLayout_3.addWidget(self.tabWidget, 0, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout_3, 0, 0, 1, 1)
@@ -640,6 +699,8 @@ class Ui_BDLMainWindow(object):
         self.iwadMenuDeals = QtWidgets.QMenu(self.iwadMenu)
         self.iwadMenuDeals.setTitle("Check for deals...")
         self.iwadMenuDeals.setObjectName("iwadMenuDeals")
+        self.bdlMenu = QtWidgets.QMenu(self.menuBar)
+        self.bdlMenu.setObjectName("bdlMenu")
         BDLMainWindow.setMenuBar(self.menuBar)
         self.portAdd = QtWidgets.QAction(BDLMainWindow)
         self.portAdd.setText("Add existing source ports")
@@ -695,10 +756,27 @@ class Ui_BDLMainWindow(object):
         self.iwadDealsClassicComplete = QtWidgets.QAction(BDLMainWindow)
         self.iwadDealsClassicComplete.setText("Doom Classic Complete")
         self.iwadDealsClassicComplete.setObjectName("iwadDealsClassicComplete")
+        self.bdlMenuAbout = QtWidgets.QAction(BDLMainWindow)
+        self.bdlMenuAbout.setObjectName("bdlMenuAbout")
+        self.bdlMenuClearEverything = QtWidgets.QAction(BDLMainWindow)
+        self.bdlMenuClearEverything.setObjectName("bdlMenuClearEverything")
+        self.portClearAll = QtWidgets.QAction(BDLMainWindow)
+        self.portClearAll.setObjectName("portClearAll")
+        self.bdlMenuSaveini = QtWidgets.QAction(BDLMainWindow)
+        self.bdlMenuSaveini.setObjectName("bdlMenuSaveini")
+        self.bdlMenuLoadini = QtWidgets.QAction(BDLMainWindow)
+        self.bdlMenuLoadini.setObjectName("bdlMenuLoadini")
+        self.actionFind_Steam_IWADs = QtWidgets.QAction(BDLMainWindow)
+        self.actionFind_Steam_IWADs.setObjectName("actionFind_Steam_IWADs")
+        self.iwadAutoAddSteamIWADs = QtWidgets.QAction(BDLMainWindow)
+        self.iwadAutoAddSteamIWADs.setObjectName("iwadAutoAddSteamIWADs")
+        self.iwadClearAll = QtWidgets.QAction(BDLMainWindow)
+        self.iwadClearAll.setObjectName("iwadClearAll")
         self.portMenu.addAction(self.portDownloadAction)
         self.portMenu.addSeparator()
         self.portMenu.addAction(self.portAdd)
         self.portMenu.addAction(self.portRem)
+        self.portMenu.addAction(self.portClearAll)
         self.portMenu.addSeparator()
         self.portMenu.addAction(self.portBrowseLocalFiles)
         self.portMenu.addAction(self.portRename)
@@ -710,17 +788,29 @@ class Ui_BDLMainWindow(object):
         self.iwadMenuSteam.addAction(self.iwadSteamUDoom)
         self.iwadMenuSteam.addAction(self.iwadSteamDoom2)
         self.iwadMenuSteam.addAction(self.iwadSteamFinalDoom)
+        self.iwadMenuSteam.addSeparator()
         self.iwadMenuSteam.addAction(self.iwadSteamClassicComplete)
         self.iwadMenuDeals.addAction(self.iwadDealsUDoom)
         self.iwadMenuDeals.addAction(self.iwadDealsDoom2)
         self.iwadMenuDeals.addAction(self.iwadDealsFinalDoom)
+        self.iwadMenuDeals.addSeparator()
         self.iwadMenuDeals.addAction(self.iwadDealsClassicComplete)
         self.iwadMenu.addAction(self.iwadBrowseLocalFiles)
         self.iwadMenu.addSeparator()
+        self.iwadMenu.addAction(self.iwadAutoAddSteamIWADs)
+        self.iwadMenu.addAction(self.iwadClearAll)
+        self.iwadMenu.addSeparator()
         self.iwadMenu.addAction(self.iwadMenuSteam.menuAction())
         self.iwadMenu.addAction(self.iwadMenuDeals.menuAction())
+        self.bdlMenu.addAction(self.bdlMenuSaveini)
+        self.bdlMenu.addAction(self.bdlMenuLoadini)
+        self.bdlMenu.addSeparator()
+        self.bdlMenu.addAction(self.bdlMenuClearEverything)
+        self.bdlMenu.addSeparator()
+        self.bdlMenu.addAction(self.bdlMenuAbout)
         self.menuBar.addAction(self.portMenu.menuAction())
         self.menuBar.addAction(self.iwadMenu.menuAction())
+        self.menuBar.addAction(self.bdlMenu.menuAction())
 
         self.retranslateUi(BDLMainWindow)
         self.tabWidget.setCurrentIndex(0)
@@ -728,10 +818,21 @@ class Ui_BDLMainWindow(object):
         self.demoGroup.toggled['bool'].connect(self.warpGroup.setChecked)
         self.demoPlayRadio.toggled['bool'].connect(self.warpGroup.setDisabled)
         self.bdlDetectIWADs.toggled['bool'].connect(self.bdlRejectBadIWADs.setEnabled)
+        self.paramTurboCheck.toggled['bool'].connect(self.paramTurboSpin.setEnabled)
+        self.demoLongTicsCheck.toggled['bool'].connect(self.demoAutoRecordCheck.setDisabled)
         QtCore.QMetaObject.connectSlotsByName(BDLMainWindow)
 
     def retranslateUi(self, BDLMainWindow):
-        pass
+        _translate = QtCore.QCoreApplication.translate
+        self.bdlMenu.setTitle(_translate("BDLMainWindow", "BDL"))
+        self.bdlMenuAbout.setText(_translate("BDLMainWindow", "About"))
+        self.bdlMenuClearEverything.setText(_translate("BDLMainWindow", "Clear everything"))
+        self.portClearAll.setText(_translate("BDLMainWindow", "Clear all source ports"))
+        self.bdlMenuSaveini.setText(_translate("BDLMainWindow", "Save .ini"))
+        self.bdlMenuLoadini.setText(_translate("BDLMainWindow", "Load .ini"))
+        self.actionFind_Steam_IWADs.setText(_translate("BDLMainWindow", "Find Steam IWADs"))
+        self.iwadAutoAddSteamIWADs.setText(_translate("BDLMainWindow", "Auto-add Steam IWADs"))
+        self.iwadClearAll.setText(_translate("BDLMainWindow", "Clear all IWADs"))
 from bdlWidgets import bdlComboBox, bdlDemoLineEdit, bdlListWidget
 import res_rc
 

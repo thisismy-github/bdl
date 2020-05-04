@@ -651,19 +651,6 @@ color: white; }</string>
                 <property name="verticalSpacing">
                  <number>4</number>
                 </property>
-                <item row="3" column="0">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                 <item row="0" column="0">
                  <widget class="QGroupBox" name="demoGroup">
                   <property name="sizePolicy">
@@ -672,12 +659,6 @@ color: white; }</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>130</width>
-                    <height>0</height>
-                   </size>
-                  </property>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
@@ -685,10 +666,7 @@ color: white; }</string>
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string notr="true">Record a new or play an existing demo.
-Recording a new demo will automatically
-warp you to the opening map on skill 3,
-Hurt Me Plenty, unless otherwise specified.</string>
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Record or play a demo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="title">
                    <string notr="true">Record/Play Demo</string>
@@ -721,6 +699,21 @@ Hurt Me Plenty, unless otherwise specified.</string>
                    <property name="verticalSpacing">
                     <number>1</number>
                    </property>
+                   <item row="1" column="0">
+                    <widget class="QRadioButton" name="demoPlayRadio">
+                     <property name="toolTip">
+                      <string notr="true">Play an existing demo.
+
+Many parameters either interfere with or
+do nothing when playing demos, so most
+options on this page are disabled or
+ignored while this option is selected.</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true">Play</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="1" column="3">
                     <widget class="bdlDemoLineEdit" name="demoPlayPathLineEdit">
                      <property name="minimumSize">
@@ -729,8 +722,40 @@ Hurt Me Plenty, unless otherwise specified.</string>
                        <height>0</height>
                       </size>
                      </property>
+                     <property name="toolTip">
+                      <string notr="true">Play an existing demo.
+
+Many parameters either interfere with or
+do nothing when playing demos, so most
+options on this page are disabled or
+ignored while this option is selected.</string>
+                     </property>
                      <property name="placeholderText">
                       <string notr="true">Path to demo</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="QLineEdit" name="demoRecordNameLineEdit">
+                     <property name="minimumSize">
+                      <size>
+                       <width>50</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string notr="true">Record a new demo. Use the browse button
+to select a directory to save your demo to.
+
+Not specifying a name for your demo will
+default it to &quot;unnamed_demo.lmp&quot;.
+
+Recording demos requires warping to a level.
+If no warp is specified, BDL will default to
+the first level on skill 4, Ultra-Violence.</string>
+                     </property>
+                     <property name="placeholderText">
+                      <string notr="true">Name of demo</string>
                      </property>
                     </widget>
                    </item>
@@ -750,30 +775,24 @@ Hurt Me Plenty, unless otherwise specified.</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLineEdit" name="demoRecordNameLineEdit">
-                     <property name="minimumSize">
-                      <size>
-                       <width>50</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="placeholderText">
-                      <string notr="true">Name of demo</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QRadioButton" name="demoPlayRadio">
+                   <item row="0" column="0">
+                    <widget class="QRadioButton" name="demoRecordRadio">
                      <property name="toolTip">
-                      <string notr="true">Play an existing demo. Many parameters
-either do nothing or can interfere with
-the playing of a demo, so as a result,
-many of this menu's options are disabled
-or ignored while this option is selected.</string>
+                      <string notr="true">Record a new demo. Use the browse button
+to select a directory to save your demo to.
+
+Not specifying a name for your demo will
+default it to &quot;unnamed_demo.lmp&quot;.
+
+Recording demos requires warping to a level.
+If no warp is specified, BDL will default to
+the first level on skill 4, Ultra-Violence.</string>
                      </property>
                      <property name="text">
-                      <string notr="true">Play</string>
+                      <string notr="true">Record</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
@@ -798,40 +817,60 @@ padding-left: 0px; padding-right: 0px;
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="0">
-                    <widget class="QRadioButton" name="demoRecordRadio">
-                     <property name="toolTip">
-                      <string notr="true">Record a new demo. Use the browse button
-to select a directory to save your demo to.
-Not including a name for your demo will
-default it to &quot;unnamed_demo.lmp&quot;.</string>
+                   <item row="4" column="0" colspan="5">
+                    <layout class="QHBoxLayout" name="horizontalLayout_2">
+                     <property name="spacing">
+                      <number>15</number>
                      </property>
-                     <property name="text">
-                      <string notr="true">Record</string>
-                     </property>
-                     <property name="checked">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0" colspan="5">
-                    <widget class="QCheckBox" name="demoAutoRecordCheck">
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>21</height>
-                      </size>
-                     </property>
-                     <property name="toolTip">
-                      <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically start recording a new demo after the previous recording finishes. Mainly intended for speedrunners, who must restart frequently.&lt;/p&gt;&lt;p&gt;Appends an attempt number to the end of each file. Demos must be deleted manually.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This setting must be disabled while in-game.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="text">
-                      <string notr="true">Auto-record new demos</string>
-                     </property>
-                    </widget>
+                     <item>
+                      <widget class="QCheckBox" name="demoAutoRecordCheck">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>21</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically start recording a new demo after the previous recording finishes. Mainly intended for speedrunners, who must restart frequently.&lt;/p&gt;&lt;p&gt;Appends an attempt number to the end of each file. Demos must be deleted manually.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This setting must be disabled while in-game.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string notr="true">Auto-record</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QCheckBox" name="demoLongTicsCheck">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>21</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces demos to use standard high-precision turning.&lt;/p&gt;&lt;p&gt;Normally, demos are recorded using &amp;quot;shorttics&amp;quot;, a method of reducing the size of demos by limiting the angles players can face to an 8-bit number, 0-255. While this is actually useful for several speedrunning tricks, this can be jarring and uncomfortable for normal gameplay.&lt;/p&gt;&lt;p&gt;Turning on longtics is useful when casually recording demos, such as for playtesting purposes. As such, turning on longtics will disable BDL's auto-record feature.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Does not work with complevels 9 and 11 in Pr/GLBoom+.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Do not use -longtics when speedrunning.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string notr="true">-longtics</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </item>
                   </layout>
                  </widget>
+                </item>
+                <item row="3" column="0">
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item row="2" column="0">
                  <widget class="QGroupBox" name="paramGroup">
@@ -864,28 +903,15 @@ to alter your game.</string>
                    <property name="topMargin">
                     <number>3</number>
                    </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
                    <property name="bottomMargin">
                     <number>3</number>
                    </property>
                    <property name="verticalSpacing">
                     <number>2</number>
                    </property>
-                   <item row="0" column="0">
-                    <widget class="QCheckBox" name="paramFast">
-                     <property name="toolTip">
-                      <string notr="true">Fast monsters, with dramatically
-increased aggression and projectile
-speeds. This setting is on by default
-on NIGHTMARE! difficulty.
-
-Can be used outside of NIGHTMARE! to
-spice up the other difficulty settings.</string>
-                     </property>
-                     <property name="text">
-                      <string notr="true">-fast</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="1">
                     <widget class="QCheckBox" name="paramRespawn">
                      <property name="toolTip">
@@ -911,7 +937,112 @@ spice up the other difficulty settings.</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="2" column="0">
+                    <widget class="QCheckBox" name="paramNoSound">
+                     <property name="toolTip">
+                      <string notr="true">Disables both music
+and sound effects.</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true">-nosound</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="1" column="1">
+                    <widget class="QCheckBox" name="paramLevelStat">
+                     <property name="toolTip">
+                      <string notr="true">Generates a levelstat.txt file with in-depth
+map-by-map stats and times.</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true">-levelstat</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="0" colspan="2">
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                     <property name="spacing">
+                      <number>3</number>
+                     </property>
+                     <item>
+                      <widget class="QCheckBox" name="paramTurboCheck">
+                       <property name="toolTip">
+                        <string notr="true">Adjusts player speed as a percentage from
+10-400, with 100 being normal movement.
+(ex. 150 would be 150% normal speed)
+
+Forcing this value above 255 will have...
+interesting effects when holding run.</string>
+                       </property>
+                       <property name="text">
+                        <string notr="true">-turbo</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QSpinBox" name="paramTurboSpin">
+                       <property name="enabled">
+                        <bool>false</bool>
+                       </property>
+                       <property name="accelerated">
+                        <bool>true</bool>
+                       </property>
+                       <property name="prefix">
+                        <string notr="true"/>
+                       </property>
+                       <property name="minimum">
+                        <number>10</number>
+                       </property>
+                       <property name="maximum">
+                        <number>255</number>
+                       </property>
+                       <property name="value">
+                        <number>100</number>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_2">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QCheckBox" name="paramFast">
+                     <property name="toolTip">
+                      <string notr="true">Fast monsters, with dramatically
+increased aggression and projectile
+speeds. This setting is on by default
+on NIGHTMARE! difficulty.
+
+Can be used outside of NIGHTMARE! to
+spice up the other difficulty settings.</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true">-fast</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QCheckBox" name="paramNoMusic">
+                     <property name="toolTip">
+                      <string notr="true">Disables music.</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true">-nomusic</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
                     <widget class="QCheckBox" name="paramNoMonsters">
                      <property name="toolTip">
                       <string notr="true">Removes demons from the game.
@@ -924,34 +1055,13 @@ killing specific monsters to exit.</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="0">
-                    <widget class="QCheckBox" name="paramNoMusic">
-                     <property name="toolTip">
-                      <string notr="true">Disables music.</string>
-                     </property>
-                     <property name="text">
-                      <string notr="true">-nomusic</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
+                   <item row="4" column="1">
                     <widget class="QCheckBox" name="paramNoSFX">
                      <property name="toolTip">
                       <string notr="true">Disables sound effects.</string>
                      </property>
                      <property name="text">
                       <string notr="true">-nosfx</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
-                    <widget class="QCheckBox" name="paramNoSound">
-                     <property name="toolTip">
-                      <string notr="true">Disables both music
-and sound effects.</string>
-                     </property>
-                     <property name="text">
-                      <string notr="true">-nosound</string>
                      </property>
                     </widget>
                    </item>
@@ -1138,7 +1248,7 @@ first map.</string>
           <property name="verticalSpacing">
            <number>1</number>
           </property>
-          <item row="2" column="1">
+          <item row="2" column="2">
            <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -1151,7 +1261,7 @@ first map.</string>
             </property>
            </spacer>
           </item>
-          <item row="2" column="2">
+          <item row="2" column="3">
            <widget class="QPushButton" name="commandLinePreviewButton">
             <property name="maximumSize">
              <size>
@@ -1164,7 +1274,23 @@ first map.</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="3">
+          <item row="2" column="1">
+           <widget class="QToolButton" name="bdlMenuButton">
+            <property name="text">
+             <string notr="true">BDL</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>9</width>
+              <height>9</height>
+             </size>
+            </property>
+            <property name="popupMode">
+             <enum>QToolButton::MenuButtonPopup</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="4">
            <widget class="QScrollArea" name="scrollArea_3">
             <property name="widgetResizable">
              <bool>true</bool>
@@ -1461,19 +1587,6 @@ on startup once per day.</string>
             </widget>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="aboutButton">
-            <property name="maximumSize">
-             <size>
-              <width>46</width>
-              <height>21</height>
-             </size>
-            </property>
-            <property name="text">
-             <string notr="true">About</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </widget>
@@ -1499,6 +1612,7 @@ on startup once per day.</string>
     <addaction name="separator"/>
     <addaction name="portAdd"/>
     <addaction name="portRem"/>
+    <addaction name="portClearAll"/>
     <addaction name="separator"/>
     <addaction name="portBrowseLocalFiles"/>
     <addaction name="portRename"/>
@@ -1519,6 +1633,7 @@ on startup once per day.</string>
      <addaction name="iwadSteamUDoom"/>
      <addaction name="iwadSteamDoom2"/>
      <addaction name="iwadSteamFinalDoom"/>
+     <addaction name="separator"/>
      <addaction name="iwadSteamClassicComplete"/>
     </widget>
     <widget class="QMenu" name="iwadMenuDeals">
@@ -1528,15 +1643,31 @@ on startup once per day.</string>
      <addaction name="iwadDealsUDoom"/>
      <addaction name="iwadDealsDoom2"/>
      <addaction name="iwadDealsFinalDoom"/>
+     <addaction name="separator"/>
      <addaction name="iwadDealsClassicComplete"/>
     </widget>
     <addaction name="iwadBrowseLocalFiles"/>
     <addaction name="separator"/>
+    <addaction name="iwadAutoAddSteamIWADs"/>
+    <addaction name="iwadClearAll"/>
+    <addaction name="separator"/>
     <addaction name="iwadMenuSteam"/>
     <addaction name="iwadMenuDeals"/>
    </widget>
+   <widget class="QMenu" name="bdlMenu">
+    <property name="title">
+     <string>BDL</string>
+    </property>
+    <addaction name="bdlMenuSaveini"/>
+    <addaction name="bdlMenuLoadini"/>
+    <addaction name="separator"/>
+    <addaction name="bdlMenuClearEverything"/>
+    <addaction name="separator"/>
+    <addaction name="bdlMenuAbout"/>
+   </widget>
    <addaction name="portMenu"/>
    <addaction name="iwadMenu"/>
+   <addaction name="bdlMenu"/>
   </widget>
   <action name="portAdd">
    <property name="text">
@@ -1628,6 +1759,46 @@ on startup once per day.</string>
     <string notr="true">Doom Classic Complete</string>
    </property>
   </action>
+  <action name="bdlMenuAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="bdlMenuClearEverything">
+   <property name="text">
+    <string>Clear everything</string>
+   </property>
+  </action>
+  <action name="portClearAll">
+   <property name="text">
+    <string>Clear all source ports</string>
+   </property>
+  </action>
+  <action name="bdlMenuSaveini">
+   <property name="text">
+    <string>Save .ini</string>
+   </property>
+  </action>
+  <action name="bdlMenuLoadini">
+   <property name="text">
+    <string>Load .ini</string>
+   </property>
+  </action>
+  <action name="actionFind_Steam_IWADs">
+   <property name="text">
+    <string>Find Steam IWADs</string>
+   </property>
+  </action>
+  <action name="iwadAutoAddSteamIWADs">
+   <property name="text">
+    <string>Auto-add Steam IWADs</string>
+   </property>
+  </action>
+  <action name="iwadClearAll">
+   <property name="text">
+    <string>Clear all IWADs</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1662,7 +1833,7 @@ on startup once per day.</string>
     </hint>
     <hint type="destinationlabel">
      <x>52</x>
-     <y>74</y>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -1674,11 +1845,11 @@ on startup once per day.</string>
    <hints>
     <hint type="sourcelabel">
      <x>35</x>
-     <y>60</y>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>119</x>
-     <y>74</y>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -1693,8 +1864,40 @@ on startup once per day.</string>
      <y>83</y>
     </hint>
     <hint type="destinationlabel">
+     <x>168</x>
+     <y>92</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>paramTurboCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>paramTurboSpin</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>245</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>97</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>demoLongTicsCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>demoAutoRecordCheck</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
      <x>135</x>
-     <y>88</y>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>42</x>
+     <y>117</y>
     </hint>
    </hints>
   </connection>

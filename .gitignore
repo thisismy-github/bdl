@@ -41,7 +41,9 @@ test-results.xml
 uitests/out/**
 !build/
 IWADs/
+*.wad
 *.cfg
 *.ini
+*.lmp
 deadlines.txt
 reset.py

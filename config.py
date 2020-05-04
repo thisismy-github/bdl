@@ -5,53 +5,62 @@
 
 import os, platform, shutil, configparser
 
-def loadConfig(bdl):
-    if not os.path.exists("bdl.ini"):
+def loadConfig(bdl, file="bdl.ini"):
+    if not os.path.exists(file):
         firstTimeSetup(bdl)
     else:
         config = configparser.ConfigParser()
-        config.read("bdl.ini")
+        config.read(file)
 
         # load saved pwads/iwads/ports
+        # TODO add if file != "bdl.ini" for performance here?
         if 'bdl.iwads' in config:
-            index = 0
-            while config['bdl.iwads'].get(f'iwadpath{index}'):
-                try:
-                    bdl.addFileFromConfig(bdl.ui.iwadList,
-                                          path=config['bdl.iwads'].get(f'iwadpath{index}'),
-                                          name=config['bdl.iwads'].get(f'iwadname{index}'),  # TODO: fallback=?
-                                          warpStyle=config['bdl.iwads'].get(f'iwadwarp{index}'))
-                except Exception as error:
-                    print("iwad:",error)   # TODO: clean up error stuff here
-                index+=1
+            if config.items('bdl.pwads'):
+                bdl.clearListWidgetItems(bdl.ui.iwadList)
+                index = 0
+                while config['bdl.iwads'].get(f'iwadpath{index}'):
+                    try:
+                        bdl.addFileFromConfig(bdl.ui.iwadList,
+                                              path=config['bdl.iwads'].get(f'iwadpath{index}'),
+                                              name=config['bdl.iwads'].get(f'iwadname{index}'),  # TODO: fallback=?
+                                              warpStyle=config['bdl.iwads'].get(f'iwadwarp{index}'))
+                    except Exception as error:
+                        print("iwad:",error)   # TODO: clean up error stuff here
+                    index+=1
+
         if 'bdl.pwads' in config:
-            index = 0
-            while config['bdl.pwads'].get(f'pwadpath{index}'):
-                try:
-                    bdl.addFileFromConfig(bdl.ui.pwadList,
-                                            path=config['bdl.pwads'].get(f'pwadpath{index}'),
-                                            name=None,
-                                            checked=config['bdl.pwads'].getboolean(f'pwadchecked{index}'))
-                except Exception as error:
-                    print("pwad:",error)
-                index+=1
+            if config.items('bdl.pwads'):
+                bdl.clearListWidgetItems(bdl.ui.pwadList)
+                index = 0
+                while config['bdl.pwads'].get(f'pwadpath{index}'):
+                    try:
+                        bdl.addFileFromConfig(bdl.ui.pwadList,
+                                              path=config['bdl.pwads'].get(f'pwadpath{index}'),
+                                              name=None,
+                                              checked=config['bdl.pwads'].getboolean(f'pwadchecked{index}'))
+                    except Exception as error:
+                        print("pwad:",error)
+                    index+=1
         if 'bdl.ports' in config:
-            index = 0
-            while config['bdl.ports'].get(f'portpath{index}'):
-                try:
-                    bdl.addFileFromConfig(bdl.ui.portCombo,
-                                            path=config['bdl.ports'].get(f'portpath{index}'),
-                                            name=config['bdl.ports'].get(f'portname{index}'))
-                except Exception as error:
-                    print("port:",error)
-                index+=1
+            if config.items('bdl.ports'):
+                bdl.clearPorts(showWarning=False)
+                index = 0
+                while config['bdl.ports'].get(f'portpath{index}'):
+                    try:
+                        bdl.addFileFromConfig(bdl.ui.portCombo,
+                                              path=config['bdl.ports'].get(f'portpath{index}'),
+                                              name=config['bdl.ports'].get(f'portname{index}'))
+                    except Exception as error:
+                        print("port:",error)
+                    index+=1
 
         # set window size/pos, splitter sizes, other settings
         if 'bdl.general' in config:
-            windowSizeX, windowSizeY = config['bdl.general'].get('windowsize',fallback='225,247').split(",")
-            bdl.window.resize(int(windowSizeX), int(windowSizeY))
-            windowPosX, windowPosY = config['bdl.general'].get('windowpos',fallback='350,250').split(",")
-            bdl.window.move(int(windowPosX), int(windowPosY))
+            if file == "bdl.ini":   # don't move window when loading custom configs
+                windowSizeX, windowSizeY = config['bdl.general'].get('windowsize',fallback='225,247').split(",")
+                bdl.window.resize(int(windowSizeX), int(windowSizeY))
+                windowPosX, windowPosY = config['bdl.general'].get('windowpos',fallback='350,250').split(",")
+                bdl.window.move(int(windowPosX), int(windowPosY))
 
             # each setting is wrapped in a try-except block to restore it to the default
             # set in Qt designer when the UI was created in case of user tampering.
@@ -80,8 +89,9 @@ def loadConfig(bdl):
             except Exception as e: print(e)
             try: bdl.ui.bdlUpdateLastCheckLabel.setText(general.get('lastupdatecheck', fallback='Last check: N/A'))
             except Exception as e: print(e)
-            try: bdl.updateReady = general.getboolean('updateready', fallback=False)
-            except Exception as e: print(e)
+            if file == "bdl.ini":   # don't queue updates from custom configs
+                try: bdl.updateReady = general.getboolean('updateready', fallback=False)
+                except Exception as e: print(e)
 
         if 'bdl.save' in config:
             save = config['bdl.save']
@@ -112,6 +122,8 @@ def loadConfig(bdl):
             except Exception as e: print(e)
             try: bdl.ui.demoAutoRecordCheck.setChecked(save.getboolean('demoautorecord', fallback=False))
             except Exception as e: print(e)
+            try: bdl.ui.demoLongTicsCheck.setChecked(save.getboolean('demolongtics', fallback=False))
+            except Exception as e: print(e)
 
             try: bdl.ui.warpGroup.setChecked(save.getboolean('warpenabled', fallback=False))
             except Exception as e: print(e)
@@ -137,20 +149,24 @@ def loadConfig(bdl):
             except Exception as e: print(e)
             try: bdl.ui.paramSoloNet.setChecked(params.getboolean('solo-net', fallback=False))
             except Exception as e: print(e)
+            try: bdl.ui.paramLevelStat.setChecked(params.getboolean('levelstat', fallback=False))
+            except Exception as e: print(e)
+            try: bdl.ui.paramNoSound.setChecked(params.getboolean('nosound', fallback=False))
+            except Exception as e: print(e)
             try: bdl.ui.paramNoMonsters.setChecked(params.getboolean('nomonsters', fallback=False))
             except Exception as e: print(e)
             try: bdl.ui.paramNoMusic.setChecked(params.getboolean('nomusic', fallback=False))
             except Exception as e: print(e)
             try: bdl.ui.paramNoSFX.setChecked(params.getboolean('nosfx', fallback=False))
             except Exception as e: print(e)
-            try: bdl.ui.paramNoSound.setChecked(params.getboolean('nosound', fallback=False))
+            try: bdl.ui.paramTurboSpin.setValue(params.getint('turbo', fallback=100))
             except Exception as e: print(e)
+            if bdl.ui.paramTurboSpin.value() != 100:
+                bdl.ui.paramTurboCheck.setChecked(True)
 
 
 
-
-
-def saveConfig(bdl):       # TODO: add md5 check here? might not save time
+def saveConfig(bdl, file="bdl.ini"):       # TODO: add md5 check here? might not save time
     config = configparser.ConfigParser()
     config['bdl.general'] = {}
     general = config['bdl.general']
@@ -181,6 +197,7 @@ def saveConfig(bdl):       # TODO: add md5 check here? might not save time
     save['demoplay'] = str(bdl.ui.demoPlayRadio.isChecked())
     save['demoplaypath'] = bdl.ui.demoPlayPathLineEdit.text()
     save['demoautorecord'] = str(bdl.ui.demoAutoRecordCheck.isChecked())
+    save['demolongtics'] = str(bdl.ui.demoLongTicsCheck.isChecked())
     save['warpenabled'] = str(bdl.ui.warpGroup.isChecked())
     save['warp'] = str(bdl.ui.warpMapCombo.currentIndex())
     save['skill'] = str(bdl.ui.warpSkillCombo.currentIndex()+1)   # +1 to negate the -1 in loadConfig()
@@ -191,10 +208,12 @@ def saveConfig(bdl):       # TODO: add md5 check here? might not save time
     params['fast'] = str(bdl.ui.paramFast.isChecked())
     params['respawn'] = str(bdl.ui.paramRespawn.isChecked())
     params['solo-net'] = str(bdl.ui.paramSoloNet.isChecked())
+    params['levelstat'] = str(bdl.ui.paramLevelStat.isChecked())
     params['nomonsters'] = str(bdl.ui.paramNoMonsters.isChecked())
+    params['nosound'] = str(bdl.ui.paramNoSound.isChecked())
     params['nomusic'] = str(bdl.ui.paramNoMusic.isChecked())
     params['nosfx'] = str(bdl.ui.paramNoSFX.isChecked())
-    params['nosound'] = str(bdl.ui.paramNoSound.isChecked())
+    params['turbo'] = str(bdl.ui.paramTurboSpin.value())
 
     # loop through file widgets and save all wads/ports and their properties
     config['bdl.iwads'] = {}
@@ -210,8 +229,11 @@ def saveConfig(bdl):       # TODO: add md5 check here? might not save time
     for i in range(bdl.ui.portCombo.count()):
         config['bdl.ports'][f'portname{i}'] = bdl.ui.portCombo.itemText(i)
         config['bdl.ports'][f'portpath{i}'] = bdl.ui.portCombo.itemData(i,3)
-    with open('bdl.ini', 'w') as ini:
+
+    # Save ini file
+    with open(file, 'w') as ini:
         config.write(ini)
+
 
 
 def findSteamIWADs(bdl):
@@ -260,8 +282,8 @@ def findSteamIWADs(bdl):
             for wad in wadPriority:
                 wadPath = os.path.abspath(r".\IWADs") + "\\" + wad
                 if wadPath in files:
-                    sortedFiles.append(wadPath)
-            bdl.addFile(bdl.ui.iwadList, sortedFiles)
+                    sortedFiles.append(wadPath.replace("\\", "/"))
+            bdl.addFile(bdl.ui.iwadList, files=sortedFiles)
         else:
             os.rmdir(r".\IWADs")    # delete directory if it's empty
         bdl.ui.iwadList.setCurrentRow(0)     # selects first iwad (usually ultimate doom)

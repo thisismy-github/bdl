@@ -31,7 +31,7 @@ def checkUpdateSuccess(bdl):
 
 
 def checkUpdate(bdl, noChanges=False):
-    print('checking')
+    print('checking for updates')
     try:
         with urllib.request.urlopen('https://thisismywebsite.net/bdlversion.txt') as response:
             latestVersionStr = response.read().decode("utf-8")  # returns byte string -> decode
